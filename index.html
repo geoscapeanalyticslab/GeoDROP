@@ -574,6 +574,12 @@
   height: 13px;
   flex-shrink: 0;
 }
+.source-btn svg.arrow {
+  width: 11px;
+  height: 11px;
+  margin-left: 2px;
+  flex-shrink: 0;
+}
 @keyframes fadeSlideUp {
   from {
     opacity: 0;
@@ -694,7 +700,7 @@
 <div class="stats-bar">
   <div class="stats-inner">
     <div class="stat">
-      <div class="stat-value">7</div>
+      <div class="stat-value">6</div>
       <div class="stat-label">Datasets</div>
     </div>
     <!--for now. <div class="stat">
@@ -714,7 +720,7 @@
  
      
 <div class="datasets-grid">
-
+ 
   <!-- 1 — Soil Erosion -->
   <div class="dataset-card">
     <img src="images/1.png" alt="National-Scale Soil Erosion Dataset preview" class="dataset-thumb">
@@ -733,20 +739,23 @@
     </div>
     <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
       <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/ldr.4138" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <img src="images/logos/paper.png" alt="Paper">
         Paper
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <a href="https://zenodo.org/records/10694225" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#1857a4"/><path d="M7 9h6l-6 6h6" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <img src="images/logos/zenodo.png" alt="Zenodo">
         Zenodo
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <a href="https://code.earthengine.google.com/?scriptPath=users/sat-io/awesome-gee-catalog-examples:soil-properties/NATIONAL-SOIL-ERODABILITY-DATASET-PK" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 48 48"><path fill="#34A853" d="M24 4 L8 24 L24 44 L24 32 L16 24 L24 16 Z"/><path fill="#4285F4" d="M24 4 L40 24 L24 44 L24 32 L32 24 L24 16 Z"/></svg>
+        <img src="images/logos/gee.png" alt="GEE App">
         GEE App
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
     </div>
   </div>
-
+ 
   <!-- 2 — High Res Land Cover -->
   <div class="dataset-card">
     <img src="images/2.png" alt="High Res Land Cover Change preview" class="dataset-thumb">
@@ -765,20 +774,23 @@
     </div>
     <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
       <a href="https://www.sciencedirect.com/science/article/pii/S0195925523003621?via%3Dihub" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <img src="images/logos/paper.png" alt="Paper">
         Paper
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <a href="https://zenodo.org/records/13982339" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#1857a4"/><path d="M7 9h6l-6 6h6" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <img src="images/logos/zenodo.png" alt="Zenodo">
         Zenodo
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <a href="https://code.earthengine.google.com/?scriptPath=users/sat-io/awesome-gee-catalog-examples:regional-landuse-landcover/PK-LANCOVER-CARBON-STOCK" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 48 48"><path fill="#34A853" d="M24 4 L8 24 L24 44 L24 32 L16 24 L24 16 Z"/><path fill="#4285F4" d="M24 4 L40 24 L24 44 L24 32 L32 24 L24 16 Z"/></svg>
+        <img src="images/logos/gee.png" alt="GEE App">
         GEE App
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
     </div>
   </div>
-
+ 
   <!-- 3 — Carbon Storage -->
   <div class="dataset-card">
     <img src="images/3.png" alt="Carbon Storage Pakistan preview" class="dataset-thumb">
@@ -797,20 +809,23 @@
     </div>
     <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
       <a href="https://www.sciencedirect.com/science/article/pii/S0195925523003621?via%3Dihub" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <img src="images/logos/paper.png" alt="Paper">
         Paper
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <a href="https://zenodo.org/records/13982339" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#1857a4"/><path d="M7 9h6l-6 6h6" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <img src="images/logos/zenodo.png" alt="Zenodo">
         Zenodo
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <a href="https://code.earthengine.google.com/?scriptPath=users/sat-io/awesome-gee-catalog-examples:geophysical-biological-biogeochemical/INDUS-DELTA-MANGROVE-SOC" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 48 48"><path fill="#34A853" d="M24 4 L8 24 L24 44 L24 32 L16 24 L24 16 Z"/><path fill="#4285F4" d="M24 4 L40 24 L24 44 L24 32 L32 24 L24 16 Z"/></svg>
+       <img src="images/logos/gee.png" alt="GEE App">
         GEE App
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
     </div>
   </div>
-
+ 
   <!-- 4 — Mangrove SOC -->
   <div class="dataset-card">
     <img src="images/4.png" alt="Mangrove Soil Organic Carbon Indus Delta preview" class="dataset-thumb">
@@ -829,20 +844,23 @@
     </div>
     <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
       <a href="https://www.sciencedirect.com/science/article/pii/S0272771425003130?via%3Dihub" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <img src="images/logos/paper.png" alt="Paper">
         Paper
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <a href="https://zenodo.org/records/13824640" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#1857a4"/><path d="M7 9h6l-6 6h6" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <img src="images/logos/zenodo.png" alt="Zenodo">
         Zenodo
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <a href="https://code.earthengine.google.com/?scriptPath=users/sat-io/awesome-gee-catalog-examples:geophysical-biological-biogeochemical/INDUS-DELTA-MANGROVE-SOC" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 48 48"><path fill="#34A853" d="M24 4 L8 24 L24 44 L24 32 L16 24 L24 16 Z"/><path fill="#4285F4" d="M24 4 L40 24 L24 44 L24 32 L32 24 L24 16 Z"/></svg>
+        <img src="images/logos/gee.png" alt="GEE App">
         GEE App
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
     </div>
   </div>
-
+ 
   <!-- 5 — WHiCH Canopy Height -->
   <div class="dataset-card">
     <img src="images/5.png" alt="WHiCH Western Himalaya Canopy Height preview" class="dataset-thumb">
@@ -861,20 +879,23 @@
     </div>
     <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
       <a href="https://www.sciencedirect.com/science/article/pii/S1569843225006776?via%3Dihub" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <img src="images/logos/paper.png" alt="Paper">
         Paper
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <a href="https://zenodo.org/records/18056032" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#1857a4"/><path d="M7 9h6l-6 6h6" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <img src="images/logos/zenodo.png" alt="Zenodo">
         Zenodo
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <a href="https://ee-adeelgeog.projects.earthengine.app/view/which-map-2020" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 48 48"><path fill="#34A853" d="M24 4 L8 24 L24 44 L24 32 L16 24 L24 16 Z"/><path fill="#4285F4" d="M24 4 L40 24 L24 44 L24 32 L32 24 L24 16 Z"/></svg>
+        <img src="images/logos/gee.png" alt="GEE App">
         GEE App
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
     </div>
   </div>
-
+ 
   <!-- 7 — Brick Kiln -->
   <div class="dataset-card">
     <img src="images/7.png" alt="Brick Kiln Dataset for Pakistan's IGP Region preview" class="dataset-thumb">
@@ -893,21 +914,24 @@
     </div>
     <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
       <a href="https://www.nature.com/articles/s41597-025-05148-9" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <img src="images/logos/paper.png" alt="Paper">
         Paper
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <a href="https://zenodo.org/records/14718244" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#1857a4"/><path d="M7 9h6l-6 6h6" stroke="white" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <img src="images/logos/zenodo.png" alt="Zenodo">
         Zenodo
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <a href="https://drive.google.com/drive/folders/1ghDuKUz0-pTaDuCyKypyD0AR_ohL98gW?usp=sharing" target="_blank" rel="noopener" class="source-btn">
-        <svg viewBox="0 0 24 24"><path fill="#FFC107" d="M9.5 3 L17 16 L13 23 L5.5 10 Z"/><path fill="#4285F4" d="M13 23 L17 16 L23.5 16 L19.5 23 Z" transform="translate(-1,0)"/><path fill="#34A853" d="M9.5 3 L2.5 16 L6.5 23 L13.5 10 Z" transform="translate(0,0) scale(-1,1) translate(-19,0)"/></svg>
+        <img src="images/logos/drive.png" alt="Drive">
         Drive
+        <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg>
       </a>
       <!-- No App Link provided — button omitted -->
     </div>
   </div>
-
+ 
 </div>
 </section>
 
