@@ -640,6 +640,49 @@
 
   .footer-inner a { color: rgba(255,255,255,0.6); text-decoration: none; }
   .footer-inner a:hover { color: white; }
+  /* Menu Icon */
+  .hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: white;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+}
 
   @media (max-width: 600px) {
     nav { padding: 0 1rem; }
@@ -672,11 +715,24 @@
       <span>GeoSpatial Dataset Repository Of Pakistan</span>
     </div>
   </a>
+  <!-- Nav bar 
   <ul class="nav-links">
     <li><a href="#top">Home</a></li>
     <li><a href="#datasets">Datasets</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#about">About</a></li>
+  </ul>     -->
+  <button class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#top" onclick="toggleMenu()">Home</a></li>
+    <li><a href="#datasets" onclick="toggleMenu()">Datasets</a></li>
+    <li><a href="#about" onclick="toggleMenu()">About</a></li>
+    <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
   </ul>
 </nav>
 
@@ -1004,6 +1060,10 @@
       history.replaceState(null, null, ' ');
      }
     });
+    function toggleMenu() {
+  const navLinks = document.getElementById('nav-links');
+  navLinks.classList.toggle('open');
+    }
   </script>
 </body>
 </body>
