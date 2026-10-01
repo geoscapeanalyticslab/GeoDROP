@@ -302,7 +302,10 @@
   }
 
   /* DATASETS */
-  #datasets { background: var(--white); }
+  #datasets {
+    background: var(--white);
+    scroll-margin-top: 75px;
+  }
 
   .datasets-grid {
     display: grid;
@@ -354,6 +357,82 @@
   }
 
   .dataset-card[hidden] {
+    display: none;
+  }
+
+  .clear-filters {
+    font-family: inherit;
+    font-size: 13px;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--white);
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  .clear-filters:hover {
+    border-color: #b4e2cc;
+    background: var(--green-light);
+    color: var(--green-dark);
+  }
+
+  .clear-filters:focus-visible {
+    outline: 2px solid var(--green-accent);
+    outline-offset: 1px;
+  }
+
+  .dataset-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-top: 1.75rem;
+  }
+
+  .page-btn {
+    font-family: inherit;
+    font-size: 13px;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--white);
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  .page-btn:hover:not(:disabled) {
+    border-color: #b4e2cc;
+    background: var(--green-light);
+    color: var(--green-dark);
+  }
+
+  .page-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .page-btn.active {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+    color: var(--white);
+  }
+
+  .page-btn:focus-visible {
+    outline: 2px solid var(--green-accent);
+    outline-offset: 1px;
+  }
+
+  .page-ellipsis {
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 0 0.2rem;
+  }
+
+  .dataset-pagination:empty {
     display: none;
   }
 
@@ -945,6 +1024,7 @@
           <option value="desc">Newest first (descending)</option>
         </select>
       </div>
+      <button type="button" class="clear-filters" id="clear-filters">Clear filters</button>
       <span class="dataset-count" id="dataset-count" aria-live="polite"></span>
     </div>
 
@@ -2311,6 +2391,7 @@
 </div>
  
 </div>
+    <nav class="dataset-pagination" id="dataset-pagination" aria-label="Dataset pages"></nav>
 </section>
 
 <!-- CONTRIBUTORS -->
@@ -2428,7 +2509,11 @@
     const datasetCards = Array.from(datasetGrid.querySelectorAll('.dataset-card'));
     const tagFilter = document.getElementById('tag-filter');
     const yearSort = document.getElementById('year-sort');
+    const clearFilters = document.getElementById('clear-filters');
     const datasetCount = document.getElementById('dataset-count');
+    const pagination = document.getElementById('dataset-pagination');
+    const perPage = 10;
+    let currentPage = 1;
 
     const categoryOf = (card) => card.querySelector('.tag-cat').textContent.trim();
     const yearOf = (card) => {
@@ -2442,28 +2527,106 @@
       tagFilter.add(new Option(category, category));
     });
 
-    function applyDatasetControls() {
-      const tag = tagFilter.value;
-      let visible = 0;
+    const pageButton = (label, page, options) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'page-btn';
+      btn.textContent = label;
+      btn.dataset.page = page;
+      if (options.ariaLabel) btn.setAttribute('aria-label', options.ariaLabel);
+      if (options.active) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-current', 'page');
+      }
+      if (options.disabled) btn.disabled = true;
+      return btn;
+    };
 
-      datasetCards.forEach((card) => {
-        const matches = tag === 'all' || categoryOf(card) === tag;
-        card.hidden = !matches;
-        if (matches) visible++;
+    function renderPagination(totalPages) {
+      pagination.textContent = '';
+      if (totalPages <= 1) return;
+
+      pagination.appendChild(pageButton('Prev', currentPage - 1, {
+        ariaLabel: 'Previous page',
+        disabled: currentPage === 1,
+      }));
+
+      const wanted = new Set();
+      if (totalPages <= 7) {
+        for (let page = 1; page <= totalPages; page++) wanted.add(page);
+      } else {
+        [1, totalPages, currentPage].forEach((page) => wanted.add(page));
+        if (currentPage - 1 >= 1) wanted.add(currentPage - 1);
+        if (currentPage + 1 <= totalPages) wanted.add(currentPage + 1);
+        if (currentPage <= 3) {
+          [2, 3].forEach((page) => { if (page < totalPages) wanted.add(page); });
+        }
+        if (currentPage >= totalPages - 2) {
+          [totalPages - 1, totalPages - 2].forEach((page) => { if (page > 1) wanted.add(page); });
+        }
+      }
+
+      let previous = 0;
+      Array.from(wanted).sort((a, b) => a - b).forEach((page) => {
+        if (page - previous > 1) {
+          const gap = document.createElement('span');
+          gap.className = 'page-ellipsis';
+          gap.textContent = '…';
+          pagination.appendChild(gap);
+        }
+        pagination.appendChild(pageButton(String(page), page, { active: page === currentPage }));
+        previous = page;
       });
 
-      const direction = yearSort.value === 'asc' ? 1 : -1;
-      const ordered = yearSort.value === 'default'
-        ? datasetCards
-        : datasetCards.slice().sort((a, b) => direction * (yearOf(a) - yearOf(b)));
-      ordered.forEach((card) => datasetGrid.appendChild(card));
-
-      datasetCount.textContent = `Showing ${visible} of ${datasetCards.length} datasets`;
+      pagination.appendChild(pageButton('Next', currentPage + 1, {
+        ariaLabel: 'Next page',
+        disabled: currentPage === totalPages,
+      }));
     }
 
-    tagFilter.addEventListener('change', applyDatasetControls);
-    yearSort.addEventListener('change', applyDatasetControls);
-    applyDatasetControls();
+    function applyDatasetControls(resetPage) {
+      const tag = tagFilter.value;
+      if (resetPage) currentPage = 1;
+
+      const matched = tag === 'all'
+        ? datasetCards
+        : datasetCards.filter((card) => categoryOf(card) === tag);
+      const direction = yearSort.value === 'asc' ? 1 : -1;
+      const ordered = yearSort.value === 'default'
+        ? matched
+        : matched.slice().sort((a, b) => direction * (yearOf(a) - yearOf(b)));
+
+      const totalPages = Math.max(1, Math.ceil(ordered.length / perPage));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const start = (currentPage - 1) * perPage;
+      const onPage = new Set(ordered.slice(start, start + perPage));
+
+      ordered.forEach((card) => datasetGrid.appendChild(card));
+      datasetCards.forEach((card) => { card.hidden = !onPage.has(card); });
+
+      datasetCount.textContent = ordered.length
+        ? `Showing ${start + 1}–${start + onPage.size} of ${ordered.length} datasets`
+        : 'No datasets match the selected filter';
+
+      renderPagination(totalPages);
+    }
+
+    tagFilter.addEventListener('change', () => applyDatasetControls(true));
+    yearSort.addEventListener('change', () => applyDatasetControls(true));
+    clearFilters.addEventListener('click', () => {
+      tagFilter.value = 'all';
+      yearSort.value = 'default';
+      applyDatasetControls(true);
+    });
+    pagination.addEventListener('click', (event) => {
+      const btn = event.target.closest('.page-btn');
+      if (!btn || btn.disabled) return;
+      currentPage = parseInt(btn.dataset.page, 10);
+      applyDatasetControls();
+      document.getElementById('datasets').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    applyDatasetControls(true);
   </script>
 </body>
 </body>
