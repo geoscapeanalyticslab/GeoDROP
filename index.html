@@ -309,6 +309,54 @@
     gap: 1rem;
   }
 
+  .dataset-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dataset-controls label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .dataset-controls select {
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--white);
+    cursor: pointer;
+  }
+
+  .dataset-controls select:focus-visible {
+    outline: 2px solid var(--green-accent);
+    outline-offset: 1px;
+  }
+
+  .dataset-count {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  .dataset-card[hidden] {
+    display: none;
+  }
+
   .dataset-card {
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -780,6 +828,9 @@
     section { padding: 3rem 1rem; }
     .dataset-card { grid-template-columns: 1fr; }
     .stats-inner { gap: 1.5rem; }
+    .dataset-controls { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+    .control-group { justify-content: space-between; }
+    .dataset-count { margin-left: 0; }
     .footer-inner { flex-direction: column; text-align: center; }
   }
   @media (max-width: 700px) {
@@ -861,14 +912,15 @@
 <div class="stats-bar">
   <div class="stats-inner">
     <div class="stat">
-      <div class="stat-value">7</div>
+      <div class="stat-value">46</div>
       <div class="stat-label">Datasets</div>
     </div>
-    <!--for now. <div class="stat">
+    <!--for now.
+    <div class="stat">
       <div class="stat-value">7</div>
       <div class="stat-label">Categories</div>
     </div>
-    
+    -->
   </div>
 </div>
 
@@ -878,8 +930,24 @@
     <p class="section-eyebrow">Catalogue</p>
     <h2 class="section-title">Datasets Repository</h2>
     <p style="font-size:14px;color:var(--text-muted);margin-top:-1.75rem;margin-bottom:2rem;">Every dataset below is openly available from its original publisher. Click through for licensing terms, full documentation, and downloads.</p>
- 
-     
+    <div class="dataset-controls">
+      <div class="control-group">
+        <label for="tag-filter">Tag</label>
+        <select id="tag-filter">
+          <option value="all">All tags</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="year-sort">Sort by year</label>
+        <select id="year-sort">
+          <option value="default">Catalogue order</option>
+          <option value="asc">Oldest first (ascending)</option>
+          <option value="desc">Newest first (descending)</option>
+        </select>
+      </div>
+      <span class="dataset-count" id="dataset-count" aria-live="polite"></span>
+    </div>
+
 <div class="datasets-grid">
    <!-- 7 — Flood Susceptibility Conditioning Layers -->
 <div class="dataset-card">
@@ -1139,6 +1207,1108 @@
       <!-- No App Link provided — button omitted -->
     </div>
   </div>
+  <!-- ===== DATASETS BATCH 1 (Cards 1–20) ===== -->
+<!-- Paste these inside your .datasets-grid div -->
+
+<!-- 1 — Sindh 2022 Flood Masks -->
+<div class="dataset-card">
+  <img src="images/v1.png" alt="Sindh 2022 Flood Masks" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Floods & Hazards</span><span class="tag tag-res">Raster · Multi-sensor</span></div>
+    <div class="dataset-name">Monthly Multi-Sensor Flood Masks and District Flood Exposure — Sindh 2022</div>
+    <p class="dataset-desc">Monthly S1/S2/Landsat-9 flood masks and district-level flood exposure data for the 2022 Sindh monsoon floods, covering persistent atmospheric forcing and delayed floodplain inundation dynamics.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Akhter Z.H., Li L., Ma W., Amir A., Turup A., Ma B.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Sindh, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2022</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1007/s00704-026-06581-5" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.21964443" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 2 — Sentinel-1 Flood Extent 2022 -->
+<div class="dataset-card">
+  <img src="images/v2.png" alt="Sentinel-1 Flood Extent 2022" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Floods & Hazards</span><span class="tag tag-res">Raster · 20 m</span></div>
+    <div class="dataset-name">Sentinel-1 Flood Extent, Frequency and First-Detection Layers — Pakistan 2022</div>
+    <p class="dataset-desc">Sentinel-1 based flood extent, frequency and first-detection raster layers at 20 m resolution covering the severe Pakistan floods from 10 Aug to 23 Sep 2022.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Roth F., Bauer-Marschallinger B., Tupas M.E., Reimer C., Salamon P., Wagner W.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2022</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.5194/nhess-23-3305-2023" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://researchdata.tuwien.ac.at/records/zvvmh-nan78" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 3 — FEW-Pakistan Flood Benchmark -->
+<div class="dataset-card">
+  <img src="images/v3.png" alt="FEW-Pakistan Flood Benchmark" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Floods & Hazards</span><span class="tag tag-res">Raster · Benchmark</span></div>
+    <div class="dataset-name">FEW-Pakistan: Flood Early-Warning / Flood Extent Benchmark Dataset</div>
+    <p class="dataset-desc">A benchmark dataset for flood early-warning and flood extent mapping over Pakistan, designed to support the development and evaluation of remote sensing-based flood detection algorithms.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Nguyen, Kwon, Lee, Tanaka, Kim, Ali, Kim</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2026</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.rsase.2026.102025" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.13927666" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 4 — Pakistan 2022 Flood Risk Layers -->
+<div class="dataset-card">
+  <img src="images/v4.png" alt="Pakistan 2022 Flood Risk Layers" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Floods & Hazards</span><span class="tag tag-res">Raster</span></div>
+    <div class="dataset-name">Pakistan 2022 Flood Risk Layers Including Sediment</div>
+    <p class="dataset-desc">Flood risk raster layers for the 2022 Pakistan floods including sediment transport and deposition data, supporting post-flood damage assessment and future risk modelling.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Gao H., Fu, Rizwan</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2022</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.3390/rs18172933" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.6084/m9.figshare.33137444" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Figshare"> Figshare <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 5 — Human Displacement 2022 Floods
+<div class="dataset-card">
+  <img src="images/v5.png" alt="Human Displacement 2022 Floods" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Floods & Hazards</span><span class="tag tag-res">Gridded / District</span></div>
+    <div class="dataset-name">Human Displacement During the 2022 Pakistan Floods</div>
+    <p class="dataset-desc">Gridded and district-level dataset of human displacement during the catastrophic 2022 Pakistan floods, enabling spatial analysis of population exposure and vulnerability.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Kam, Cache, Biess et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2022</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1029/2025ef006788" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.3929/ethz-c-000786701" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 6 — Kaghan & Siran Landslide Inventory -->
+<div class="dataset-card">
+  <img src="images/v6.png" alt="Kaghan Siran Landslide Inventory" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Landslides</span><span class="tag tag-res">Vector</span></div>
+    <div class="dataset-name">Landslide Inventory and Conditioning Factors — Kaghan & Siran Valleys, KP</div>
+    <p class="dataset-desc">Landslide inventory and conditioning factor layers for Kaghan and Siran valleys in Mansehra and Torghar districts, Khyber Pakhtunkhwa, produced by BGR-GSP collaboration.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Torizin J., Fuchs M., Awan A.A. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Mansehra & Torghar, KP</div>
+      <div class="meta-item"><strong>Date</strong> · 2017</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1007/s11069-017-2992-2" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.5109621" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 7 — Gilgit-Baltistan Landslide Inventory
+<div class="dataset-card">
+  <img src="images/v7.png" alt="GB Landslide Inventory" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Landslides</span><span class="tag tag-res">Vector</span></div>
+    <div class="dataset-name">Gilgit-Baltistan Landslide Inventory and Slope-Unit Susceptibility</div>
+    <p class="dataset-desc">Comprehensive landslide inventory and slope-unit based susceptibility maps for Gilgit-Baltistan, Pakistan — a high-mountain region highly prone to mass movements.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Xiong Y., Miao, Dai</div>
+      <div class="meta-item"><strong>Coverage</strong> · Gilgit-Baltistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2026</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.11922/11-6035.csd.2026.0029.zh" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.17369499" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.57760/sciencedb.28394" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 8 — 2005 Kashmir Earthquake Landslide Inventory (Sato)
+<div class="dataset-card">
+  <img src="images/v8.png" alt="2005 Kashmir Earthquake Landslides Sato" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Landslides</span><span class="tag tag-res">Vector</span></div>
+    <div class="dataset-name">2005 Kashmir Earthquake Co-Seismic Landslide Inventory (Sato et al.)</div>
+    <p class="dataset-desc">USGS landslide inventory triggered by the 2005 Kashmir earthquake, documenting co-seismic mass movements using satellite imagery analysis by Sato et al.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Sato H.P., Hasegawa H., Fujiwara S. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Kashmir, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2005</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1007/s10346-006-0069-5" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5066/f7sj1j42" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 9 — 2005 Kashmir Earthquake Landslide Inventory (Basharat 2014)
+<div class="dataset-card">
+  <img src="images/v9.png" alt="2005 Kashmir Landslides Basharat 2014" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Landslides</span><span class="tag tag-res">Vector</span></div>
+    <div class="dataset-name">2005 Kashmir Earthquake Co-Seismic Landslide Inventory (Basharat 2014)</div>
+    <p class="dataset-desc">USGS co-seismic landslide inventory for the 2005 Kashmir earthquake by Basharat et al. (2014), providing detailed geomorphological mapping of mass movement events.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Basharat M., Rohn J., Baig M.S. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Kashmir, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2005</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.geomorph.2013.09.025" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5066/f7d798xk" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 10 — 2005 Kashmir Earthquake Landslide Inventory (Basharat 2016)
+<div class="dataset-card">
+  <img src="images/v10.png" alt="2005 Kashmir Landslides Basharat 2016" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Landslides</span><span class="tag tag-res">Vector</span></div>
+    <div class="dataset-name">2005 Kashmir Earthquake Co-Seismic Landslide Inventory (Basharat 2016)</div>
+    <p class="dataset-desc">Updated USGS co-seismic landslide inventory for the 2005 Kashmir earthquake, extending coverage and refining landslide polygons from the earlier Basharat et al. mapping.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Basharat M., Ali A., Jadoon I.A.K. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Kashmir, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2005</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1007/s11069-016-2172-9" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5066/f78g8j68" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 11 — Kohat Sinkhole Inventory -->
+<div class="dataset-card">
+  <img src="images/v11.png" alt="Kohat Sinkhole Inventory" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Landslides</span><span class="tag tag-res">Vector</span></div>
+    <div class="dataset-name">Kohat Sinkhole Inventory and Susceptibility</div>
+    <p class="dataset-desc">First comprehensive sinkhole inventory and karst hazard susceptibility dataset for the Kohat district of Pakistan, supporting ground subsidence risk assessment in evaporite karst terrain.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Ahmad S.M., Wang, Khan</div>
+      <div class="meta-item"><strong>Coverage</strong> · Kohat, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2025</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1038/s44304-025-00061-y" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.13466660" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 12 — Ghizer Glacial Lakes & GLOF Simulations -->
+<div class="dataset-card">
+  <img src="images/v12.png" alt="Ghizer Glacial Lakes GLOF" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Cryosphere / GLOF</span><span class="tag tag-res">Raster + Vector</span></div>
+    <div class="dataset-name">Ghizer Glacial Lakes and GLOF Simulations</div>
+    <p class="dataset-desc">Glacial lake mapping and glacial lake outburst flood (GLOF) simulation data for the Ghizer district of Gilgit-Baltistan, supporting downstream hazard assessment and early-warning planning.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Mazhar, Atif, Azmat</div>
+      <div class="meta-item"><strong>Coverage</strong> · Ghizer, Gilgit-Baltistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2025</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1109/jstars.2024.3522950" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.21227/6dwm-8993" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 13 — 2013 Balochistan Earthquake DSM -->
+<div class="dataset-card">
+  <img src="images/v13.png" alt="2013 Balochistan Earthquake DSM" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Seismotectonics</span><span class="tag tag-res">Raster · DSM</span></div>
+    <div class="dataset-name">2013 Balochistan (Awaran) Earthquake DSM and 3-D Displacement Maps</div>
+    <p class="dataset-desc">Digital surface models and 3-D surface displacement maps derived from InSAR for the 2013 Mw 7.7 Balochistan (Awaran) earthquake, enabling detailed fault characterisation.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Antoine S.L. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Balochistan, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2013</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1029/2022JB024480" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.17632/hv762x5dkz" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 14 — 2013 Balochistan Earthquake Fault Geometry -->
+<div class="dataset-card">
+  <img src="images/v14.png" alt="2013 Balochistan Fault Geometry" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Seismotectonics</span><span class="tag tag-res">Raster · InSAR</span></div>
+    <div class="dataset-name">2013 Balochistan Earthquake Fault Geometry</div>
+    <p class="dataset-desc">Fault geometry data derived from InSAR observations of the 2013 Balochistan earthquake, providing slip distribution and rupture characterisation for seismic hazard modelling.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Lauer B., Grandin R., Klinger Y.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Balochistan, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2013</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1029/2019jb018380" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.3653891" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 15 — 2013 Balochistan Postseismic InSAR -->
+<div class="dataset-card">
+  <img src="images/v15.png" alt="2013 Balochistan Postseismic InSAR" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Seismotectonics</span><span class="tag tag-res">Raster · InSAR</span></div>
+    <div class="dataset-name">2013 Balochistan Postseismic InSAR / FEM Model Outputs</div>
+    <p class="dataset-desc">Postseismic InSAR time series and finite element model outputs for the 2013 Balochistan earthquake, capturing afterslip and viscoelastic relaxation processes.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Cheng, Barnhart W.D., Li</div>
+      <div class="meta-item"><strong>Coverage</strong> · Balochistan, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2013</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1029/2022jb024493" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.7227610" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 16 — Makran Megathrust Aseismic Slip -->
+<div class="dataset-card">
+  <img src="images/v16.png" alt="Makran Megathrust Aseismic Slip" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Seismotectonics</span><span class="tag tag-res">Raster · InSAR</span></div>
+    <div class="dataset-name">Makran Megathrust Aseismic Slip Triggered by 2013 Balochistan Earthquake</div>
+    <p class="dataset-desc">InSAR-derived aseismic slip dataset for the Makran megathrust triggered by the 2013 Mw 7.7 Balochistan earthquake, advancing understanding of coupled subduction zone dynamics.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Lv X., Amelung F., Shao Y.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Makran, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2013</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1029/2021gl097411" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.6233253" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 17 — 2017 Pasni Earthquake InSAR -->
+<div class="dataset-card">
+  <img src="images/v17.png" alt="2017 Pasni Earthquake InSAR" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Seismotectonics</span><span class="tag tag-res">Raster · InSAR</span></div>
+    <div class="dataset-name">2017 Pasni (Makran) Earthquake InSAR Data</div>
+    <p class="dataset-desc">InSAR surface deformation data for the 2017 Pasni earthquake along the Makran coast, providing coseismic displacement maps for fault modelling and seismic hazard assessment.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Yang, Qiu, Feng</div>
+      <div class="meta-item"><strong>Coverage</strong> · Makran Coast, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2017</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1093/gji/ggac257" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.6050792" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 18 — Nanga Parbat InSAR / GNSS Velocity -->
+<div class="dataset-card">
+  <img src="images/v18.png" alt="Nanga Parbat InSAR GNSS" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Seismotectonics</span><span class="tag tag-res">Raster · InSAR / GNSS</span></div>
+    <div class="dataset-name">Nanga Parbat InSAR / GNSS Velocity Fields</div>
+    <p class="dataset-desc">InSAR and GNSS-derived surface velocity fields for the Nanga Parbat massif, capturing active crustal deformation in one of the world's fastest-uplifting mountain ranges.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Meyer, Jouanne F., Doin M.-P.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Nanga Parbat, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2026</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1029/2025jb032286" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.18246635" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 19 — Makran 1945 Tsunami DEM -->
+<div class="dataset-card">
+  <img src="images/v19.png" alt="Makran 1945 Tsunami DEM" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Coastal Hazards</span><span class="tag tag-res">Raster · DEM</span></div>
+    <div class="dataset-name">Makran 1945 Tsunami — Bathymetric/Topographic DEM of Karachi Harbour</div>
+    <p class="dataset-desc">Bathymetric and topographic DEM of Karachi Harbour produced to support modelling of the 1945 Makran tsunami, enabling coastal inundation and hazard assessment along Pakistan's coastline.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Hasan H., Atwater B.F., Ahmed et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Karachi, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 1945 event / 2018 data</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1186/s40562-018-0117-8" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5066/p9nhqw8m" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 20 — Karachi Shoreline Change 1972–2020 -->
+<div class="dataset-card">
+  <img src="images/v20.png" alt="Karachi Shoreline Change" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Coastal Hazards</span><span class="tag tag-res">Vector</span></div>
+    <div class="dataset-name">Karachi Shoreline Change 1972–2020</div>
+    <p class="dataset-desc">50-year time series of morphological shoreline change along Karachi's coast using multi-temporal satellite imagery, documenting erosion, accretion, and anthropogenic impacts.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · See paper DOI</div>
+      <div class="meta-item"><strong>Coverage</strong> · Karachi, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 1972–2020</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1080/19475705.2021.2009044" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.6084/m9.figshare.17151238" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Figshare <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+<!-- ===== DATASETS BATCH 2 (Cards 21–40) ===== -->
+
+<!-- 21 — Shisper Glacier Surge Dataset -->
+<div class="dataset-card">
+  <img src="images/v21.png" alt="Shisper Glacier Surge" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Raster + Vector</span></div>
+    <div class="dataset-name">Shisper Glacier Surge Dataset — Velocities and Surface Changes</div>
+    <p class="dataset-desc">Glacier surface velocity and elevation change data for the surging Shisper Glacier in Hunza, Gilgit-Baltistan, documenting one of the most dramatic recent surge events in the Karakoram.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Majeed U., Rashid I. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Hunza, Gilgit-Baltistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2020</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.dib.2020.105394" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.17632/7v8t6xgh2c" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 22 — Shisper Surge Velocity Maps and DEMs -->
+<div class="dataset-card">
+  <img src="images/v22.png" alt="Shisper Surge Velocity Maps DEMs" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Raster · DEM</span></div>
+    <div class="dataset-name">Shisper Surge Velocity Maps and DEMs</div>
+    <p class="dataset-desc">High-resolution velocity maps and digital elevation models for the Shisper Glacier surge event, derived from optical and SAR satellite imagery to track ice dynamics and mass redistribution.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Beaud F., Aati S., Delaney I. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Hunza, Gilgit-Baltistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2022</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.5194/tc-16-3123-2022" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.4624397" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 23 — Shisper Glacier PlanetScope Topography -->
+<div class="dataset-card">
+  <img src="images/v23.png" alt="Shisper PlanetScope Topography" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Raster · DEM</span></div>
+    <div class="dataset-name">Shisper Glacier PlanetScope-Derived Topography</div>
+    <p class="dataset-desc">Sub-metre topographic models of Shisper Glacier derived from PlanetScope stereo imagery, enabling precise monitoring of glacier surface elevation changes during the surge event.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Aati S., Avouac J.-P.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Hunza, Gilgit-Baltistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2020</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.3390/rs12203418" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.4039798" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 24 — Shisper Ice-Dammed Lake GIS Layers -->
+<div class="dataset-card">
+  <img src="images/v24.png" alt="Shisper Ice-Dammed Lake GIS" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Cryosphere / GLOF</span><span class="tag tag-res">Vector · GIS</span></div>
+    <div class="dataset-name">Shisper Ice-Dammed Lake GIS Layers</div>
+    <p class="dataset-desc">GIS layers documenting the ice-dammed lake formed by the Shisper Glacier surge, tracking lake evolution and outburst flood (GLOF) risk for downstream communities in Hunza valley.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Lovell A., Muhammad S. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Hunza, Gilgit-Baltistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2024</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1017/jog.2024.80" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.17029/f65b69a0-180f-470f-b79e-61c71b18e147" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 25 — Supraglacial Lakes on Baltoro Glacier -->
+<div class="dataset-card">
+  <img src="images/v25.png" alt="Supraglacial Lakes Baltoro" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Vector · GIS</span></div>
+    <div class="dataset-name">Supraglacial Lakes on Baltoro Glacier 2016–2022</div>
+    <p class="dataset-desc">Multi-temporal mapping of supraglacial lakes on Baltoro Glacier in the Karakoram from 2016 to 2022, tracking lake formation, drainage and refilling cycles related to meltwater dynamics.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Wendleder A. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Baltoro, Gilgit-Baltistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2016–2022</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.3389/feart.2021.725394" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.16747759" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 26 — Shimshal Valley WRF Simulations -->
+<div class="dataset-card">
+  <img src="images/v26.png" alt="Shimshal WRF Simulations" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Cryosphere / Climate</span><span class="tag tag-res">Raster · NetCDF</span></div>
+    <div class="dataset-name">Shimshal Valley WRF Atmospheric Simulations</div>
+    <p class="dataset-desc">High-resolution WRF atmospheric model outputs for Shimshal valley in the Karakoram, used to study precipitation patterns and their role in glacier mass balance in a data-sparse high-mountain region.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Bonekamp P.N.J., de Kok R.J., Collier E. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Shimshal, Gilgit-Baltistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2019</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.3389/feart.2019.00107" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.2611323" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 27 — Glacier Surface Height Change Hunza 2000-2020 -->
+<div class="dataset-card">
+  <img src="images/v27.png" alt="Glacier Surface Height Hunza" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Raster · DEM</span></div>
+    <div class="dataset-name">Glacier Surface-Height Change, Hunza Basin 2000–2020</div>
+    <p class="dataset-desc">Two-decade record of glacier surface elevation changes across the Hunza basin derived from multi-source DEMs, contributing to mass balance assessment in the anomalous Karakoram glacier region.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Wu K., Liu, Zhu</div>
+      <div class="meta-item"><strong>Coverage</strong> · Hunza, Gilgit-Baltistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2000–2020</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.11922/11-6035.ncdc.2023.0009.zh" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.57760/sciencedb.09670" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 28 — Nanga Parbat Repeat Photography -->
+<div class="dataset-card">
+  <img src="images/v28.png" alt="Nanga Parbat Repeat Photography" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Imagery</span></div>
+    <div class="dataset-name">Nanga Parbat / Rupal Valley Repeat-Photography Glacier Dataset</div>
+    <p class="dataset-desc">Historical and contemporary repeat-photography dataset for glaciers in the Nanga Parbat massif and Rupal valley, documenting multi-decadal glacier retreat through ground-based imagery.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Nüsser M., Schmidt S.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Nanga Parbat, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2021</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.scitotenv.2021.147321" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.17632/sr5gzbsf9p" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 29 — Debris-Covered Glacier Melt Karakoram -->
+<div class="dataset-card">
+  <img src="images/v29.png" alt="Debris Glacier Melt Karakoram" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Field · Stake Data</span></div>
+    <div class="dataset-name">Debris-Covered Glacier Melt Measurements, Karakoram 2018–19</div>
+    <p class="dataset-desc">Field-measured ablation stake data from debris-covered glaciers in the Karakoram (Hunza), demonstrating that thin debris layers do not enhance melt — challenging conventional assumptions in glaciology.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Muhammad S., Tian L., Ali et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Hunza, Gilgit-Baltistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2018–2019</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.scitotenv.2020.141119" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.26066/rds.1972940" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 30 — Mangrove Cover Pakistan 1990-2020 -->
+<div class="dataset-card">
+  <img src="images/v30.png" alt="Mangrove Cover Pakistan" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Forest & Coast</span><span class="tag tag-res">Raster · 30 m</span></div>
+    <div class="dataset-name">Mangrove Cover of Pakistan 1990–2020 (30 m)</div>
+    <p class="dataset-desc">National-scale 30 m resolution mangrove cover maps for Pakistan across four time periods from 1990 to 2020, documenting changes in one of the world's largest arid mangrove ecosystems in the Indus Delta.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Gilani H., Naz H.I., Arshad M. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan (Indus Delta)</div>
+      <div class="meta-item"><strong>Date</strong> · 1990–2020</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.ecss.2020.107128" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.10732689" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 31 — Indus Delta Mangrove AGB -->
+<div class="dataset-card">
+  <img src="images/v31.png" alt="Indus Delta Mangrove AGB" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Forest & Coast</span><span class="tag tag-res">Raster · Biomass</span></div>
+    <div class="dataset-name">Indus Delta Mangrove Above-Ground Biomass</div>
+    <p class="dataset-desc">Spatiotemporal dynamics and ML-based predictions of above-ground biomass in the Indus Delta mangroves, combining field measurements with satellite imagery for carbon stock estimation.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Naveed et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Indus Delta, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2026</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1111/1365-2435.70342" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 32 — Pakistan LULC & Deforestation 2001-2021 -->
+<div class="dataset-card">
+  <img src="images/v32.png" alt="Pakistan LULC Deforestation" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Forest & LULC</span><span class="tag tag-res">Raster</span></div>
+    <div class="dataset-name">Pakistan LULC and Deforestation Risk Layers 2001–2021</div>
+    <p class="dataset-desc">National land use/land cover maps and ML-derived deforestation risk layers for Pakistan covering 2001 to 2021, assessing fragmentation patterns and degradation hotspots across all forest types.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Ansari, Safiullah, Cao</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2001–2021</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.eti.2025.104539" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.15097108" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 33 — AI-ForestWatch KP -->
+<div class="dataset-card">
+  <img src="images/v33.png" alt="AI-ForestWatch KP" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Forest & LULC</span><span class="tag tag-res">Raster</span></div>
+    <div class="dataset-name">AI-ForestWatch Forest Cover — 15 Districts, Khyber Pakhtunkhwa</div>
+    <p class="dataset-desc">AI-driven forest cover change detection dataset for 15 districts of Khyber Pakhtunkhwa using high-resolution satellite imagery, supporting deforestation monitoring and reforestation programme evaluation.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Zulfiqar A., Ghaffar M.M., Shahzad M. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Khyber Pakhtunkhwa</div>
+      <div class="meta-item"><strong>Date</strong> · 2021</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1117/1.jrs.15.024518" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.21682527" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 34 — Desertification of Pakistan 1990-2020 -->
+<div class="dataset-card">
+  <img src="images/v34.png" alt="Desertification Pakistan" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Land Degradation</span><span class="tag tag-res">Raster</span></div>
+    <div class="dataset-name">Desertification of Pakistan 1990–2020</div>
+    <p class="dataset-desc">National-scale desertification mapping dataset for Pakistan covering three decades from 1990 to 2020, documenting land degradation trends driven by climate variability and anthropogenic pressures.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Wang Huairui, Wang Juanle</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 1990–2020</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.11922/11-6035.csd.2026.0017.zh" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 35 — Wheat Area Maps Punjab -->
+<div class="dataset-card">
+  <img src="images/v35.png" alt="Wheat Area Maps Punjab" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Agriculture</span><span class="tag tag-res">Raster · Landsat</span></div>
+    <div class="dataset-name">Wheat Area Maps — Punjab, Pakistan (Landsat)</div>
+    <p class="dataset-desc">Annual wheat crop area maps for Punjab, Pakistan derived from Landsat imagery, providing field-scale crop mapping essential for food security monitoring and agricultural policy support.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Khan A., Hansen M.C., Potapov P. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Punjab, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2018</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.3390/rs10040489" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.13016/jkqo-dbe1" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 36 — Crop Areas by District 1980-2012
+<div class="dataset-card">
+  <img src="images/v36.png" alt="Crop Areas District 1980-2012" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Agriculture</span><span class="tag tag-res">Tabular · GIS</span></div>
+    <div class="dataset-name">Crop Areas and Production by District and Canal Command 1980–2012</div>
+    <p class="dataset-desc">District and canal command level crop area and production data for Pakistan from 1980 to 2012, compiled to support agricultural water management and irrigation efficiency studies.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Kirby M., Ahmad M.D., Mainuddin M. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 1980–2012</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.agwat.2016.06.001" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.4225/08/575657ba87efb" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 37 — Crop Ground-Truth Polygons Charsadda -->
+<div class="dataset-card">
+  <img src="images/v37.png" alt="Crop Ground Truth Charsadda" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Agriculture</span><span class="tag tag-res">Vector · S2/PlanetScope</span></div>
+    <div class="dataset-name">Crop Ground-Truth Polygons + S2/PlanetScope Stacks — Charsadda, KP</div>
+    <p class="dataset-desc">Field-surveyed crop ground-truth polygons paired with Sentinel-2 and PlanetScope image stacks for Harichand area in Charsadda district, supporting crop type classification model training.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Rehman T.U., Alam M., Minallah N. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Charsadda, KP</div>
+      <div class="meta-item"><strong>Date</strong> · 2023</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1371/journal.pone.0271897" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.6560241" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 38 — UAV Sesame Crop/Weed Imagery -->
+<div class="dataset-card">
+  <img src="images/v38.png" alt="UAV Sesame Crop Weed" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Agriculture</span><span class="tag tag-res">UAV · Imagery</span></div>
+    <div class="dataset-name">UAV Sesame Crop/Weed Imagery — Pakistan</div>
+    <p class="dataset-desc">High-resolution UAV multispectral imagery dataset of sesame crops and weeds from Pakistan, supporting precision agriculture research and the development of automated weed detection algorithms.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Moazzam S.I., Khan U.S., Qureshi W.S. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2022</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.compag.2022.107458" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.17632/9pgv3ktk33" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 39 — UAV Tobacco Crop/Weed Imagery Mardan -->
+<div class="dataset-card">
+  <img src="images/v39.png" alt="UAV Tobacco Crop Weed Mardan" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Agriculture</span><span class="tag tag-res">UAV · Imagery</span></div>
+    <div class="dataset-name">UAV Tobacco Crop/Weed Imagery — Mardan, KP</div>
+    <p class="dataset-desc">UAV-captured multispectral imagery of tobacco crops and weeds from Mardan district, Khyber Pakhtunkhwa, enabling development of smart agricultural technology for weed management.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Moazzam S.I., Khan U.S., Qureshi W.S. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Mardan, KP</div>
+      <div class="meta-item"><strong>Date</strong> · 2023</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.atech.2022.100142" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.17632/5dpc5gbgpz" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 40 — CROPSPECPK Field Spectral Library -->
+<div class="dataset-card">
+  <img src="images/v40.png" alt="CROPSPECPK Spectral Library" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Agriculture</span><span class="tag tag-res">Spectral · Field</span></div>
+    <div class="dataset-name">CROPSPECPK — Field Spectral Library of Pakistani Crops</div>
+    <p class="dataset-desc">First comprehensive field spectral library of major Pakistani crops with site coordinates, enabling hyperspectral remote sensing model development and crop identification at regional scale.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Raza, Shu, Aslam</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2026</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1186/s12870-026-08387-z" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.13372658" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+<!-- ===== DATASETS BATCH 3 (Cards 41–57) ===== -->
+
+<!-- 41 — Anuran Occurrence Northern Pakistan -->
+<div class="dataset-card">
+  <img src="images/v41.png" alt="Anuran Occurrence Northern Pakistan" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Biodiversity</span><span class="tag tag-res">Vector · Occurrence</span></div>
+    <div class="dataset-name">Anuran Occurrence and Niche Suitability — Northern Pakistan</div>
+    <p class="dataset-desc">Species occurrence records and habitat suitability models for anurans (frogs and toads) across northern Pakistan, supporting biodiversity conservation planning in montane ecosystems.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · See paper DOI</div>
+      <div class="meta-item"><strong>Coverage</strong> · Northern Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2023</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1371/journal.pone.0285867" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.7523649" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 42 — Snow Leopard Population Pakistan
+<div class="dataset-card">
+  <img src="images/v42.png" alt="Snow Leopard Population Pakistan" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Biodiversity</span><span class="tag tag-res">Vector · Camera Trap</span></div>
+    <div class="dataset-name">Snow Leopard Population Density — Pakistan</div>
+    <p class="dataset-desc">First robust population assessment of snow leopards in Pakistan using camera-trap spatial capture-recapture (SCR) methods, providing baseline density estimates for conservation management.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · See paper DOI</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2025</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1002/ecog.08074" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5061/dryad.2rbnzs82x" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 43 — Rural Poverty Maps Pakistan
+<div class="dataset-card">
+  <img src="images/v43.png" alt="Rural Poverty Maps Pakistan" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Socio-Economic</span><span class="tag tag-res">Raster · Gridded</span></div>
+    <div class="dataset-name">Rural Poverty Maps of Pakistan</div>
+    <p class="dataset-desc">Gridded rural poverty maps for Pakistan derived from satellite imagery and survey data, enabling spatial targeting of development interventions and identifying poverty hotspots at sub-district level.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Agyemang F.S.K., Memon R., Wolf L.J. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2023</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1371/journal.pone.0283938" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.6084/m9.figshare.21932289" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Figshare <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 44 — Socio-Economic Assets Exposed to Disaster Loss
+<div class="dataset-card">
+  <img src="images/v44.png" alt="Socio-Economic Assets Disaster Loss" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Socio-Economic</span><span class="tag tag-res">Gridded</span></div>
+    <div class="dataset-name">Socio-Economic Assets Exposed to Disaster Loss — Pakistan 1960–2026</div>
+    <p class="dataset-desc">Long-term gridded dataset of socio-economic assets exposed to natural disaster losses in Pakistan from 1960 to 2026, enabling risk trend analysis across provinces and hazard types.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Li Congrong, Wang Juanle</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 1960–2026</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.11922/11-6035.csd.2026.0036.zh" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 45 — Hydrometeorological Network Namal Valley
+<div class="dataset-card">
+  <img src="images/v45.png" alt="Hydrometeorological Namal Valley" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Hydrology & Climate</span><span class="tag tag-res">Station · Time Series</span></div>
+    <div class="dataset-name">Hydrometeorological Network of Namal Valley</div>
+    <p class="dataset-desc">Comprehensive hydrometeorological station network dataset for Namal Valley, Pakistan, providing rainfall, temperature, streamflow and other climate variables for water resource and hydrological modelling.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Sheraz M., Manzoor T., Khan M.J., Ali U. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Namal Valley, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2025</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1038/s41597-025-05310-3" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 46 — Streamflow Timing Pakistan (CORDEX)
+<div class="dataset-card">
+  <img src="images/v46.png" alt="Streamflow Timing Pakistan CORDEX" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Hydrology & Climate</span><span class="tag tag-res">Gridded · NetCDF</span></div>
+    <div class="dataset-name">Streamflow Timing Over Pakistan from CORDEX Replication Data</div>
+    <p class="dataset-desc">Past and future changes toward earlier streamflow timing over Pakistan derived from CORDEX regional climate model outputs, critical for water resource planning under climate change scenarios.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Kam J., Ali S. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2023</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.jhydrol.2022.128959" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.7910/dvn/j3cxg1" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 47 — Upper Indus Basin SWAT Hydrologic Projections
+<div class="dataset-card">
+  <img src="images/v47.png" alt="UIB SWAT Hydrologic Projections" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Hydrology & Climate</span><span class="tag tag-res">Model · NetCDF</span></div>
+    <div class="dataset-name">Upper Indus Basin SWAT Hydrologic Projections</div>
+    <p class="dataset-desc">SWAT hydrological model projections for the Upper Indus Basin covering future streamflow, snow melt, and water balance under multiple climate scenarios, supporting long-term water resource planning.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · See paper DOI</div>
+      <div class="meta-item"><strong>Coverage</strong> · Upper Indus Basin, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2020</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1098/rsos.191957" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5061/dryad.1ns1rn8q8" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 48 — Drinking-Water Lakes Water Quality
+<div class="dataset-card">
+  <img src="images/v48.png" alt="Drinking Water Lakes Water Quality" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · Field</span></div>
+    <div class="dataset-name">Drinking-Water Source Lakes Water Quality — Rawal, Simly & Khanpur</div>
+    <p class="dataset-desc">Water quality monitoring dataset for Pakistan's three major drinking-water source lakes (Rawal, Simly, Khanpur), covering physicochemical parameters and pollution indicators for public health assessment.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Ahmed, Ullah, Satti</div>
+      <div class="meta-item"><strong>Coverage</strong> · Islamabad Region, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2025</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1029/2025gh001595" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.17153728" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 49 — Groundwater Quality Lahore
+<div class="dataset-card">
+  <img src="images/v49.png" alt="Groundwater Quality Lahore" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · Field</span></div>
+    <div class="dataset-name">Groundwater Quality Lahore — Arsenic & Fluoride</div>
+    <p class="dataset-desc">Geospatial groundwater quality dataset for Lahore documenting arsenic and fluoride contamination levels across sampled wells, supporting public health risk assessment in Pakistan's most populous city.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Abbas et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Lahore, Punjab</div>
+      <div class="meta-item"><strong>Date</strong> · 2018</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1007/s10661-018-6775-3" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.1594/pangaea.847769" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 50 — Groundwater Quality Larkana
+<div class="dataset-card">
+  <img src="images/v50.png" alt="Groundwater Quality Larkana" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · WQI</span></div>
+    <div class="dataset-name">Groundwater Quality Taluka Larkana — WQI and GIS Analysis</div>
+    <p class="dataset-desc">Water quality index (WQI) and GIS-based spatial analysis of groundwater quality parameters across Taluka Larkana in Sindh, assessing drinking water safety for rural communities.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · See paper DOI</div>
+      <div class="meta-item"><strong>Coverage</strong> · Larkana, Sindh</div>
+      <div class="meta-item"><strong>Date</strong> · 2022</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1007/s13762-022-04598-7" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.6084/m9.figshare.23807079" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Figshare <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 51 — Groundwater Quality Peshawar -->
+<div class="dataset-card">
+  <img src="images/v51.png" alt="Groundwater Quality Peshawar" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · Field</span></div>
+    <div class="dataset-name">Groundwater Physico-Chemical Parameters — Peshawar District</div>
+    <p class="dataset-desc">Comprehensive physico-chemical groundwater quality dataset for Peshawar District, KP, documenting contamination levels across sampled wells and tubewells for environmental health assessment.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · See paper DOI</div>
+      <div class="meta-item"><strong>Coverage</strong> · Peshawar, KP</div>
+      <div class="meta-item"><strong>Date</strong> · 2019</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.3390/environments6120123" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.7225184" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 52 — Post-Flood Groundwater Quality Sindh 2022-23
+<div class="dataset-card">
+  <img src="images/v52.png" alt="Post-Flood Groundwater Quality Sindh" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · Field</span></div>
+    <div class="dataset-name">Post-Flood Groundwater Quality — Flood-Affected Districts of Sindh 2022–23</div>
+    <p class="dataset-desc">Groundwater quality measurements from flood-affected districts of Sindh following the 2022 catastrophic floods, documenting contamination impacts on drinking water sources during recovery phase.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Arain, Sattar, Khatoon</div>
+      <div class="meta-item"><strong>Coverage</strong> · Sindh, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2022–2023</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.rsma.2025.104641" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.19055322" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 53 — PCRWR Groundwater Quality 25 Cities
+<div class="dataset-card">
+  <img src="images/v53.png" alt="PCRWR Groundwater 25 Cities" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · 366 Samples</span></div>
+    <div class="dataset-name">PCRWR Groundwater Quality — 25 Major Cities of Pakistan</div>
+    <p class="dataset-desc">Geospatial analysis of groundwater quality from 366 samples across 25 major Pakistani cities, compiled from PCRWR monitoring data to map contamination patterns at national scale.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Javed Z., Chand S., Amer R.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan (25 cities)</div>
+      <div class="meta-item"><strong>Date</strong> · 2020</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.5004/dwt.2020.26087" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.57760/sciencedb.08416" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 54 — Arsenic in Wells Upper Indus Plain -->
+<div class="dataset-card">
+  <img src="images/v54.png" alt="Arsenic Upper Indus Plain" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · Well Samples</span></div>
+    <div class="dataset-name">Arsenic in Wells and Drill Cuttings — Upper Indus Plain / Ravi Floodplain</div>
+    <p class="dataset-desc">Well water and drill cutting arsenic concentration data from the Upper Indus Plain and Ravi floodplain, documenting elevated arsenic exposure risks for communities dependent on groundwater.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Mushtaq N., Farooqi A., Khattak J.A. et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Upper Indus Plain, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2024</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.scitotenv.2023.168574" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.26022/ieda/112724" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 55 — Roadside Soil Contamination GT Road -->
+<div class="dataset-card">
+  <img src="images/v55.png" alt="Roadside Soil Contamination GT Road" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Soil & Pollution</span><span class="tag tag-res">Point · Field</span></div>
+    <div class="dataset-name">Roadside Soil Contamination Along GT Road — Pakistan</div>
+    <p class="dataset-desc">Heavy metal and pollutant contamination dataset from roadside soil samples along the Grand Trunk (GT) Road corridor, documenting traffic-related soil pollution patterns across Pakistan.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Naseer, Ahmad, Adnan</div>
+      <div class="meta-item"><strong>Coverage</strong> · GT Road Corridor, Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2025</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.envadv.2025.100632" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.17632/c592fj3dnd" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+
+<!-- 56 — PMMRD Pakistan Mineral Occurrence Database
+<div class="dataset-card">
+  <img src="images/v56.png" alt="PMMRD Pakistan Mineral Database" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Geology</span><span class="tag tag-res">Vector · Database</span></div>
+    <div class="dataset-name">PMMRD — Pakistan Mineral Occurrence Database</div>
+    <p class="dataset-desc">First comprehensive geospatial mineral occurrence database for Pakistan, cataloguing known mineral deposits, prospects and occurrences with coordinates, commodity types, and geological context.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Bilal, Wang, Tian</div>
+      <div class="meta-item"><strong>Coverage</strong> · Pakistan</div>
+      <div class="meta-item"><strong>Date</strong> · 2026</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.1016/j.oregeorev.2026.107294" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.5281/zenodo.19628265" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/zenodo.png" alt="Zenodo"> Zenodo <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
+-->
+
+<!-- 57 — Makran Trench Geology and Geophysics -->
+<div class="dataset-card">
+  <img src="images/v57.png" alt="Makran Trench Geology Geophysics" class="dataset-thumb">
+  <div class="dataset-main">
+    <div class="dataset-tags"><span class="tag tag-cat">Geology</span><span class="tag tag-res">Raster + Vector</span></div>
+    <div class="dataset-name">Makran Trench Geology and Geophysics — Offshore Gwadar</div>
+    <p class="dataset-desc">Marine geology and geophysical dataset for the Makran trench offshore Gwadar, covering bathymetry, sedimentary structures, and tectonic features of this active subduction zone in Pakistan's EEZ.</p>
+    <div class="dataset-meta">
+      <div class="meta-item"><strong>Authors</strong> · Yu Chuanhai et al.</div>
+      <div class="meta-item"><strong>Coverage</strong> · Makran Trench, Pakistan EEZ</div>
+      <div class="meta-item"><strong>Date</strong> · 2021</div>
+    </div>
+  </div>
+  <div class="dataset-action" style="display:flex;flex-direction:column;gap:6px;padding-top:2px;">
+    <a href="https://doi.org/10.11922/11-6035.csd.2021.0053.zh" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Paper"> Paper <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+    <a href="https://doi.org/10.11922/sciencedb.01158" target="_blank" rel="noopener" class="source-btn"><img src="images/logos/paper.png" alt="Data"> Data <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13L13 3M13 3H7M13 3v6"/></svg></a>
+  </div>
+</div>
  
 </div>
 </section>
@@ -1253,6 +2423,47 @@
   const navLinks = document.getElementById('nav-links');
   navLinks.classList.toggle('open');
     }
+
+    const datasetGrid = document.querySelector('.datasets-grid');
+    const datasetCards = Array.from(datasetGrid.querySelectorAll('.dataset-card'));
+    const tagFilter = document.getElementById('tag-filter');
+    const yearSort = document.getElementById('year-sort');
+    const datasetCount = document.getElementById('dataset-count');
+
+    const categoryOf = (card) => card.querySelector('.tag-cat').textContent.trim();
+    const yearOf = (card) => {
+      const meta = card.querySelector('.dataset-meta');
+      const dateItem = meta ? meta.querySelector('.meta-item:last-child') : null;
+      const match = dateItem ? dateItem.textContent.match(/\d{4}/) : null;
+      return match ? parseInt(match[0], 10) : 0;
+    };
+
+    Array.from(new Set(datasetCards.map(categoryOf))).sort().forEach((category) => {
+      tagFilter.add(new Option(category, category));
+    });
+
+    function applyDatasetControls() {
+      const tag = tagFilter.value;
+      let visible = 0;
+
+      datasetCards.forEach((card) => {
+        const matches = tag === 'all' || categoryOf(card) === tag;
+        card.hidden = !matches;
+        if (matches) visible++;
+      });
+
+      const direction = yearSort.value === 'asc' ? 1 : -1;
+      const ordered = yearSort.value === 'default'
+        ? datasetCards
+        : datasetCards.slice().sort((a, b) => direction * (yearOf(a) - yearOf(b)));
+      ordered.forEach((card) => datasetGrid.appendChild(card));
+
+      datasetCount.textContent = `Showing ${visible} of ${datasetCards.length} datasets`;
+    }
+
+    tagFilter.addEventListener('change', applyDatasetControls);
+    yearSort.addEventListener('change', applyDatasetControls);
+    applyDatasetControls();
   </script>
 </body>
 </body>
