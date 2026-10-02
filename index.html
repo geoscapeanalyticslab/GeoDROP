@@ -351,6 +351,84 @@
     outline-offset: 1px;
   }
 
+  /* Author combo — input styled to match the selects, with a filterable list */
+  .combo {
+    position: relative;
+  }
+
+  .combo input {
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 0.4rem 1.7rem 0.4rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--white);
+    cursor: pointer;
+    min-width: 12.5rem;
+  }
+
+  .combo input:focus-visible {
+    outline: 2px solid var(--green-accent);
+    outline-offset: 1px;
+  }
+
+  .combo input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .combo::after {
+    content: '';
+    position: absolute;
+    right: 0.65rem;
+    top: 50%;
+    margin-top: -2px;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid var(--text-muted);
+    pointer-events: none;
+  }
+
+  .combo-list {
+    position: absolute;
+    z-index: 40;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 15rem;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0.25rem 0;
+    list-style: none;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 10px 28px rgba(10, 61, 43, 0.16);
+  }
+
+  .combo-list[hidden] {
+    display: none;
+  }
+
+  .combo-option {
+    padding: 0.4rem 0.6rem;
+    font-size: 13px;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  .combo-option:hover,
+  .combo-option.active {
+    background: var(--green-light);
+    color: var(--text-primary);
+  }
+
+  .combo-empty {
+    padding: 0.4rem 0.6rem;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
   .dataset-count {
     font-size: 12px;
     color: var(--text-muted);
@@ -987,10 +1065,10 @@
   </button>
 
   <ul class="nav-links" id="nav-links">
-    <li><a href="#top" onclick="toggleMenu()">Home</a></li>
-    <li><a href="#datasets" onclick="toggleMenu()">Datasets</a></li>
-    <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-    <li><a href="#hero" onclick="toggleMenu()">About</a></li>
+    <li><a href="#top" onclick="closeMenu()">Home</a></li>
+    <li><a href="#datasets" onclick="closeMenu()">Datasets</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+    <li><a href="#hero" onclick="closeMenu()">About</a></li>
   </ul>
 </nav>
 
@@ -1040,9 +1118,12 @@
       </div>
       <div class="control-group">
         <label for="author-filter">Author</label>
-        <select id="author-filter">
-          <option value="all">All authors</option>
-        </select>
+        <div class="combo">
+          <input type="text" id="author-filter" role="combobox" aria-expanded="false"
+                 aria-controls="author-listbox" aria-autocomplete="list" aria-label="Author"
+                 placeholder="All authors" autocomplete="off" spellcheck="false">
+          <ul class="combo-list" id="author-listbox" role="listbox" aria-label="Author suggestions" hidden></ul>
+        </div>
       </div>
       <div class="control-group">
         <label for="year-sort">Sort by year</label>
@@ -2483,9 +2564,9 @@
     <!-- Middle — Quick links -->
     <div class="footer-links">
       <p class="footer-heading">Quick Links</p>
-      <a href="#datasets">Datasets</a>
-      <a href="#hero">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#datasets" onclick="closeMenu()">Datasets</a>
+      <a href="#hero" onclick="closeMenu()">About</a>
+      <a href="#contact" onclick="closeMenu()">Contact</a>
     </div>
 
     <!-- Right — Social + contact -->
@@ -2536,6 +2617,12 @@
   const navLinks = document.getElementById('nav-links');
   navLinks.classList.toggle('open');
     }
+    function closeMenu() {
+      document.getElementById('nav-links').classList.remove('open');
+    }
+    // any link click (nav or footer) dismisses the mobile menu
+    const siteFooter = document.querySelector('footer');
+    if (siteFooter) siteFooter.addEventListener('click', closeMenu);
 
     const datasetGrid = document.querySelector('.datasets-grid');
     const datasetCards = Array.from(datasetGrid.querySelectorAll('.dataset-card'));
@@ -2569,7 +2656,7 @@
       .map((chunk) => chunk.replace(/\s+/g, ' ').trim())
       .filter(Boolean);
     const matchesAuthor = (card, author) => {
-      if (!author || author === 'all') return true;
+      if (!author) return true;
       const wanted = author.trim().toLowerCase();
       return authorUnitsOf(card).some((unit) => unit.toLowerCase() === wanted);
     };
@@ -2584,13 +2671,81 @@
       tagFilter.add(new Option(category, category));
     });
 
-    const authorNames = new Set();
-    datasetCards.forEach((card) => {
-      authorUnitsOf(card).forEach((unit) => authorNames.add(unit));
-    });
-    Array.from(authorNames).sort((a, b) => a.localeCompare(b)).forEach((name) => {
-      authorFilter.add(new Option(name, name));
-    });
+    const authorNames = Array.from(new Set(datasetCards.reduce(
+      (all, card) => all.concat(authorUnitsOf(card)), [])))
+      .sort((a, b) => a.localeCompare(b));
+
+    const authorList = document.getElementById('author-listbox');
+    let authorOptions = [];
+    let authorActive = -1;
+
+    function renderAuthorOptions(query) {
+      const q = (query || '').trim().toLowerCase();
+      const matches = q
+        ? authorNames.filter((name) => name.toLowerCase().includes(q))
+        : authorNames;
+      authorList.textContent = '';
+      authorOptions = [];
+      let optionIndex = 0;
+      const addOption = (label, value) => {
+        const li = document.createElement('li');
+        li.className = 'combo-option';
+        li.id = 'author-option-' + (optionIndex++);
+        li.setAttribute('role', 'option');
+        li.textContent = label;
+        li.dataset.value = value;
+        authorList.appendChild(li);
+        authorOptions.push(li);
+      };
+      if (!q) addOption('All authors', '');
+      matches.forEach((name) => addOption(name, name));
+      if (!matches.length) {
+        const empty = document.createElement('li');
+        empty.className = 'combo-empty';
+        empty.textContent = 'No matching author';
+        authorList.appendChild(empty);
+      }
+      setAuthorActive(-1);
+    }
+
+    function setAuthorActive(index) {
+      if (authorActive >= 0 && authorOptions[authorActive]) {
+        authorOptions[authorActive].classList.remove('active');
+        authorOptions[authorActive].removeAttribute('aria-selected');
+      }
+      authorActive = index;
+      const active = authorOptions[authorActive];
+      if (!active) {
+        authorFilter.removeAttribute('aria-activedescendant');
+        return;
+      }
+      active.classList.add('active');
+      active.setAttribute('aria-selected', 'true');
+      if (active.id) authorFilter.setAttribute('aria-activedescendant', active.id);
+    }
+
+    function openAuthorList() {
+      renderAuthorOptions(authorFilter.value);
+      authorList.hidden = false;
+      authorFilter.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeAuthorList() {
+      authorList.hidden = true;
+      authorFilter.setAttribute('aria-expanded', 'false');
+      setAuthorActive(-1);
+    }
+
+    function commitAuthor(option) {
+      authorFilter.value = option.dataset.value;
+      closeAuthorList();
+      applyDatasetControls(true);
+    }
+
+    function resetAuthor() {
+      authorFilter.value = '';
+      closeAuthorList();
+    }
 
     const pageButton = (label, page, options) => {
       const btn = document.createElement('button');
@@ -2680,11 +2835,43 @@
     }
 
     tagFilter.addEventListener('change', () => applyDatasetControls(true));
-    authorFilter.addEventListener('change', () => applyDatasetControls(true));
     yearSort.addEventListener('change', () => applyDatasetControls(true));
+
+    authorFilter.addEventListener('focus', openAuthorList);
+    authorFilter.addEventListener('click', () => {
+      if (authorList.hidden) openAuthorList(); else closeAuthorList();
+    });
+    authorFilter.addEventListener('input', () => {
+      if (authorList.hidden) openAuthorList();
+      else renderAuthorOptions(authorFilter.value);
+    });
+    authorFilter.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (authorList.hidden) openAuthorList();
+        const step = event.key === 'ArrowDown' ? 1 : -1;
+        const next = authorActive + step;
+        setAuthorActive(next < 0 ? authorOptions.length - 1
+          : next >= authorOptions.length ? 0 : next);
+      } else if (event.key === 'Enter') {
+        if (!authorList.hidden && authorOptions[authorActive]) {
+          event.preventDefault();
+          commitAuthor(authorOptions[authorActive]);
+        }
+      } else if (event.key === 'Escape') {
+        closeAuthorList();
+      }
+    });
+    authorFilter.addEventListener('blur', () => setTimeout(closeAuthorList, 120));
+    authorList.addEventListener('mousedown', (event) => event.preventDefault());
+    authorList.addEventListener('click', (event) => {
+      const option = event.target.closest('.combo-option');
+      if (option) commitAuthor(option);
+    });
+
     clearFilters.addEventListener('click', () => {
       tagFilter.value = 'all';
-      authorFilter.value = 'all';
+      resetAuthor();
       yearSort.value = 'default';
       applyDatasetControls(true);
     });
