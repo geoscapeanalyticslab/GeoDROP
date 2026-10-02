@@ -1,0 +1,86 @@
+name: Suggest a dataset
+description: Propose an open geospatial dataset about Pakistan for GeoDROP.
+title: "[Dataset] "
+labels: ["dataset suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping GeoDROP grow! We list datasets that are **openly downloadable**, **published with a peer-reviewed paper**, and **specific to Pakistan or a region within it** (global products are left out).
+
+  - type: input
+    id: name
+    attributes:
+      label: Dataset name
+      placeholder: e.g. Mangrove Cover of Pakistan 1990–2020 (30 m)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Short description
+      description: Two or three sentences on what the dataset contains and how it was made.
+    validations:
+      required: true
+
+  - type: input
+    id: coverage
+    attributes:
+      label: Coverage area
+      placeholder: e.g. Pakistan, Indus Delta, Gilgit-Baltistan, Lahore
+    validations:
+      required: true
+
+  - type: input
+    id: period
+    attributes:
+      label: Time period covered
+      placeholder: e.g. 2000–2020
+
+  - type: input
+    id: format
+    attributes:
+      label: Data format and resolution
+      placeholder: e.g. Raster · GeoTIFF · 30 m, or Vector · SHP
+
+  - type: input
+    id: data-link
+    attributes:
+      label: Download link
+      description: Zenodo, Figshare, PANGAEA, a data portal or similar.
+      placeholder: https://doi.org/10.5281/zenodo.…
+    validations:
+      required: true
+
+  - type: input
+    id: paper
+    attributes:
+      label: Paper DOI or link
+      placeholder: https://doi.org/10.…
+    validations:
+      required: true
+
+  - type: input
+    id: authors
+    attributes:
+      label: Authors
+      placeholder: Surname A., Surname B., Surname C.
+
+  - type: input
+    id: extras
+    attributes:
+      label: Code or app link (optional)
+      description: GitHub repository, Google Earth Engine app, etc.
+
+  - type: checkboxes
+    id: criteria
+    attributes:
+      label: Inclusion criteria
+      options:
+        - label: The data can be downloaded openly
+          required: true
+        - label: It is described in a peer-reviewed paper
+          required: true
+        - label: It covers Pakistan or a region within it (not a global product)
+          required: true

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Browse GeoDROP
+    url: https://geoscapeanalyticslab.github.io/GeoDROP/
+    about: Search the catalogue of open geospatial datasets about Pakistan.
+  - name: Email GeoScape Analytics Lab
+    url: https://mail.google.com/mail/?view=cm&to=geoscapeanalyticslab@gmail.com&subject=GeoDROP
+    about: Prefer email? Send dataset suggestions or questions to the lab directly.
