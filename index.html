@@ -144,6 +144,7 @@
     align-items: center;
     overflow: hidden;
     background: var(--green-dark);
+    scroll-margin-top: 75px;
   }
 
   .hero-bg {
@@ -977,7 +978,7 @@
     <li><a href="#top">Home</a></li>
     <li><a href="#datasets">Datasets</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#about">About</a></li>
+    <li><a href="#hero">About</a></li>
   </ul>     -->
   <button class="hamburger" onclick="toggleMenu()">
     <span></span>
@@ -989,12 +990,12 @@
     <li><a href="#top" onclick="toggleMenu()">Home</a></li>
     <li><a href="#datasets" onclick="toggleMenu()">Datasets</a></li>
     <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-    <li><a href="#about" onclick="toggleMenu()">About</a></li>
+    <li><a href="#hero" onclick="toggleMenu()">About</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
     <span class="hero-eyebrow">Presented By: <br>GeoScape Analytics Lab (GSAL)</span>
@@ -1035,6 +1036,12 @@
         <label for="tag-filter">Tag</label>
         <select id="tag-filter">
           <option value="all">All tags</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="author-filter">Author</label>
+        <select id="author-filter">
+          <option value="all">All authors</option>
         </select>
       </div>
       <div class="control-group">
@@ -2477,7 +2484,7 @@
     <div class="footer-links">
       <p class="footer-heading">Quick Links</p>
       <a href="#datasets">Datasets</a>
-      <a href="#about">About</a>
+      <a href="#hero">About</a>
       <a href="#contact">Contact</a>
     </div>
 
@@ -2533,6 +2540,7 @@
     const datasetGrid = document.querySelector('.datasets-grid');
     const datasetCards = Array.from(datasetGrid.querySelectorAll('.dataset-card'));
     const tagFilter = document.getElementById('tag-filter');
+    const authorFilter = document.getElementById('author-filter');
     const yearSort = document.getElementById('year-sort');
     const clearFilters = document.getElementById('clear-filters');
     const datasetCount = document.getElementById('dataset-count');
@@ -2541,6 +2549,30 @@
     let currentPage = 1;
 
     const categoryOf = (card) => card.querySelector('.tag-cat').textContent.trim();
+    const authorsOf = (card) => {
+      const item = Array.from(card.querySelectorAll('.dataset-meta .meta-item'))
+        .find((el) => {
+          const label = el.querySelector('strong');
+          return label && label.textContent.trim() === 'Authors';
+        });
+      if (!item) return '';
+      return item.textContent.replace(/^Authors\s*[·:]\s*/, '').trim();
+    };
+    // Split the author list into individual authors exactly as displayed on the card
+    // (e.g. "Surname A., Surname B. et al. (Surname C.)" -> ["Surname A.", "Surname B.", "Surname C."]).
+    // Matching is exact per author so that different people who merely share a
+    // surname (e.g. "Ma W." vs "Ma B.") are never conflated.
+    const authorUnitsOf = (card) => authorsOf(card)
+      .replace(/\bet\s*al\.?/gi, ' ')
+      .replace(/[()[\]]/g, ', ')
+      .split(/[,;]/)
+      .map((chunk) => chunk.replace(/\s+/g, ' ').trim())
+      .filter(Boolean);
+    const matchesAuthor = (card, author) => {
+      if (!author || author === 'all') return true;
+      const wanted = author.trim().toLowerCase();
+      return authorUnitsOf(card).some((unit) => unit.toLowerCase() === wanted);
+    };
     const yearOf = (card) => {
       const meta = card.querySelector('.dataset-meta');
       const dateItem = meta ? meta.querySelector('.meta-item:last-child') : null;
@@ -2550,6 +2582,14 @@
 
     Array.from(new Set(datasetCards.map(categoryOf))).sort().forEach((category) => {
       tagFilter.add(new Option(category, category));
+    });
+
+    const authorNames = new Set();
+    datasetCards.forEach((card) => {
+      authorUnitsOf(card).forEach((unit) => authorNames.add(unit));
+    });
+    Array.from(authorNames).sort((a, b) => a.localeCompare(b)).forEach((name) => {
+      authorFilter.add(new Option(name, name));
     });
 
     const pageButton = (label, page, options) => {
@@ -2611,11 +2651,13 @@
 
     function applyDatasetControls(resetPage) {
       const tag = tagFilter.value;
+      const author = authorFilter.value;
       if (resetPage) currentPage = 1;
 
-      const matched = tag === 'all'
-        ? datasetCards
-        : datasetCards.filter((card) => categoryOf(card) === tag);
+      const matched = datasetCards.filter((card) => (
+        (tag === 'all' || categoryOf(card) === tag)
+        && matchesAuthor(card, author)
+      ));
       const direction = yearSort.value === 'asc' ? 1 : -1;
       const ordered = yearSort.value === 'default'
         ? matched
@@ -2638,9 +2680,11 @@
     }
 
     tagFilter.addEventListener('change', () => applyDatasetControls(true));
+    authorFilter.addEventListener('change', () => applyDatasetControls(true));
     yearSort.addEventListener('change', () => applyDatasetControls(true));
     clearFilters.addEventListener('click', () => {
       tagFilter.value = 'all';
+      authorFilter.value = 'all';
       yearSort.value = 'default';
       applyDatasetControls(true);
     });
