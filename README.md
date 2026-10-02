@@ -6,7 +6,7 @@
 
 # GeoDROP
 
-### Geospatial Dataset Repository of Pakistan
+### Geospatial Datasets Repository of Pakistan
 
 **Open, peer-reviewed geospatial datasets about Pakistan, gathered in one searchable place.**
 
@@ -152,7 +152,7 @@ favicon_rounded.png        browser tab icon
 
 **Referring to GeoDROP itself?**
 
-> GeoScape Analytics Lab (2026). *GeoDROP: Geospatial Dataset Repository of Pakistan.* https://geoscapeanalyticslab.github.io/GeoDROP/
+> GeoScape Analytics Lab (2026). *GeoDROP: Geospatial Datasets Repository of Pakistan.* https://geoscapeanalyticslab.github.io/GeoDROP/
 
 ## Licence and credit
 
