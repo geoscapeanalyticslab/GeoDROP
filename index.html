@@ -311,6 +311,7 @@
   .datasets-grid {
     display: grid;
     gap: 1rem;
+    scroll-margin-top: 95px;
   }
 
   .dataset-controls {
@@ -459,6 +460,125 @@
   .clear-filters:focus-visible {
     outline: 2px solid var(--green-accent);
     outline-offset: 1px;
+  }
+
+  /* Publishing trend chart — follows the tag and author filters */
+  .trend-card {
+    margin: 0 0 1.5rem;
+    padding: 1.25rem 1.5rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--white);
+  }
+
+  .trend-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+  }
+
+  .trend-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    margin-bottom: 0.15rem;
+  }
+
+  .trend-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .trend-context {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: right;
+  }
+
+  .trend-context strong {
+    font-weight: 600;
+    color: var(--green-dark);
+  }
+
+  .trend-plot {
+    position: relative;
+    min-height: 190px;
+  }
+
+  .trend-plot svg {
+    display: block;
+    width: 100%;
+    overflow: visible;
+    font-family: 'Inter', sans-serif;
+    font-variant-numeric: tabular-nums;
+    touch-action: pan-y;
+  }
+
+  .trend-plot svg:focus { outline: none; }
+
+  .trend-plot svg:focus-visible {
+    outline: 2px solid var(--green-accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  .trend-bar { fill: var(--green-accent); transition: fill 0.12s; }
+  .trend-bar.active { fill: var(--green-dark); }
+  .trend-grid { stroke: #eceae3; stroke-width: 1; shape-rendering: crispEdges; }
+  .trend-baseline { stroke: #cfccc2; stroke-width: 1; shape-rendering: crispEdges; }
+  .trend-axis { font-size: 11px; fill: var(--text-muted); }
+  .trend-peak { font-size: 11px; font-weight: 600; fill: var(--text-secondary); }
+  .trend-empty { font-size: 13px; fill: var(--text-muted); }
+
+  .trend-tooltip {
+    position: absolute;
+    z-index: 5;
+    pointer-events: none;
+    transform: translate(-50%, calc(-100% - 8px));
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+    background: var(--green-dark);
+    color: var(--white);
+    font-size: 12px;
+    line-height: 1.35;
+    white-space: nowrap;
+    box-shadow: 0 6px 18px rgba(10, 61, 43, 0.18);
+  }
+
+  .trend-tooltip[hidden] { display: none; }
+  .trend-tooltip strong { font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
+
+  .trend-note {
+    margin-top: 0.6rem;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 600px) {
+    .trend-card { padding: 1rem 1rem 0.85rem; }
+    .trend-context { text-align: left; }
   }
 
   .dataset-pagination {
@@ -1137,9 +1257,29 @@
       <span class="dataset-count" id="dataset-count" aria-live="polite"></span>
     </div>
 
+    <figure class="trend-card" id="trend-card" aria-labelledby="trend-title">
+      <div class="trend-head">
+        <div>
+          <p class="trend-eyebrow">Publishing trend</p>
+          <h3 class="trend-title" id="trend-title">Open datasets published per year</h3>
+        </div>
+        <p class="trend-context" id="trend-context"></p>
+      </div>
+      <div class="trend-plot" id="trend-plot">
+        <div class="trend-tooltip" id="trend-tooltip" aria-hidden="true" hidden></div>
+      </div>
+      <figcaption class="trend-note" id="trend-note">Counted by year of publication: the dataset's release year where listed, otherwise the first online date of its paper.</figcaption>
+      <p class="sr-only" id="trend-live" aria-live="polite"></p>
+      <table class="sr-only">
+        <caption>Datasets published per year</caption>
+        <thead><tr><th scope="col">Year</th><th scope="col">Datasets</th></tr></thead>
+        <tbody id="trend-table"></tbody>
+      </table>
+    </figure>
+
 <div class="datasets-grid">
    <!-- 7 — Flood Susceptibility Conditioning Layers -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2025">
   <img src="images/8.png" alt="Flood Susceptibility Conditioning Layers Pakistan preview" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags">
@@ -1400,7 +1540,7 @@
 <!-- Paste these inside your .datasets-grid div -->
 
 <!-- 1 — Sindh 2022 Flood Masks -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2026">
   <img src="images/v1.png" alt="Sindh 2022 Flood Masks" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Floods & Hazards</span><span class="tag tag-res">Raster · Multi-sensor</span></div>
@@ -1419,7 +1559,7 @@
 </div>
 
 <!-- 2 — Sentinel-1 Flood Extent 2022 -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2023">
   <img src="images/v2.png" alt="Sentinel-1 Flood Extent 2022" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Floods & Hazards</span><span class="tag tag-res">Raster · 20 m</span></div>
@@ -1438,7 +1578,7 @@
 </div>
 
 <!-- 3 — FEW-Pakistan Flood Benchmark -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2026">
   <img src="images/v3.png" alt="FEW-Pakistan Flood Benchmark" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Floods & Hazards</span><span class="tag tag-res">Raster · Benchmark</span></div>
@@ -1457,7 +1597,7 @@
 </div>
 
 <!-- 4 — Pakistan 2022 Flood Risk Layers -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2026">
   <img src="images/v4.png" alt="Pakistan 2022 Flood Risk Layers" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Floods & Hazards</span><span class="tag tag-res">Raster</span></div>
@@ -1476,7 +1616,7 @@
 </div>
 
 <!-- 5 — Human Displacement 2022 Floods
-<div class="dataset-card">
+<div class="dataset-card" data-published="2025">
   <img src="images/v5.png" alt="Human Displacement 2022 Floods" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Floods & Hazards</span><span class="tag tag-res">Gridded / District</span></div>
@@ -1496,7 +1636,7 @@
 -->
 
 <!-- 6 — Kaghan & Siran Landslide Inventory -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2017">
   <img src="images/v6.png" alt="Kaghan Siran Landslide Inventory" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Landslides</span><span class="tag tag-res">Vector</span></div>
@@ -1515,7 +1655,7 @@
 </div>
 
 <!-- 7 — Gilgit-Baltistan Landslide Inventory
-<div class="dataset-card">
+<div class="dataset-card" data-published="2026">
   <img src="images/v7.png" alt="GB Landslide Inventory" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Landslides</span><span class="tag tag-res">Vector</span></div>
@@ -1536,7 +1676,7 @@
 -->
 
 <!-- 8 — 2005 Kashmir Earthquake Landslide Inventory (Sato)
-<div class="dataset-card">
+<div class="dataset-card" data-published="2006">
   <img src="images/v8.png" alt="2005 Kashmir Earthquake Landslides Sato" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Landslides</span><span class="tag tag-res">Vector</span></div>
@@ -1556,7 +1696,7 @@
 -->
 
 <!-- 9 — 2005 Kashmir Earthquake Landslide Inventory (Basharat 2014)
-<div class="dataset-card">
+<div class="dataset-card" data-published="2013">
   <img src="images/v9.png" alt="2005 Kashmir Landslides Basharat 2014" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Landslides</span><span class="tag tag-res">Vector</span></div>
@@ -1576,7 +1716,7 @@
 -->
 
 <!-- 10 — 2005 Kashmir Earthquake Landslide Inventory (Basharat 2016)
-<div class="dataset-card">
+<div class="dataset-card" data-published="2016">
   <img src="images/v10.png" alt="2005 Kashmir Landslides Basharat 2016" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Landslides</span><span class="tag tag-res">Vector</span></div>
@@ -1596,7 +1736,7 @@
 -->
 
 <!-- 11 — Kohat Sinkhole Inventory -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2025">
   <img src="images/v11.png" alt="Kohat Sinkhole Inventory" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Landslides</span><span class="tag tag-res">Vector</span></div>
@@ -1615,7 +1755,7 @@
 </div>
 
 <!-- 12 — Ghizer Glacial Lakes & GLOF Simulations -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2025">
   <img src="images/v12.png" alt="Ghizer Glacial Lakes GLOF" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Cryosphere / GLOF</span><span class="tag tag-res">Raster + Vector</span></div>
@@ -1634,7 +1774,7 @@
 </div>
 
 <!-- 13 — 2013 Balochistan Earthquake DSM -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2022">
   <img src="images/v13.png" alt="2013 Balochistan Earthquake DSM" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Seismotectonics</span><span class="tag tag-res">Raster · DSM</span></div>
@@ -1653,7 +1793,7 @@
 </div>
 
 <!-- 14 — 2013 Balochistan Earthquake Fault Geometry -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2020">
   <img src="images/v14.png" alt="2013 Balochistan Fault Geometry" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Seismotectonics</span><span class="tag tag-res">Raster · InSAR</span></div>
@@ -1672,7 +1812,7 @@
 </div>
 
 <!-- 15 — 2013 Balochistan Postseismic InSAR -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2022">
   <img src="images/v15.png" alt="2013 Balochistan Postseismic InSAR" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Seismotectonics</span><span class="tag tag-res">Raster · InSAR</span></div>
@@ -1691,7 +1831,7 @@
 </div>
 
 <!-- 16 — Makran Megathrust Aseismic Slip -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2022">
   <img src="images/v16.png" alt="Makran Megathrust Aseismic Slip" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Seismotectonics</span><span class="tag tag-res">Raster · InSAR</span></div>
@@ -1710,7 +1850,7 @@
 </div>
 
 <!-- 17 — 2017 Pasni Earthquake InSAR -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2022">
   <img src="images/v17.png" alt="2017 Pasni Earthquake InSAR" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Seismotectonics</span><span class="tag tag-res">Raster · InSAR</span></div>
@@ -1729,7 +1869,7 @@
 </div>
 
 <!-- 18 — Nanga Parbat InSAR / GNSS Velocity -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2026">
   <img src="images/v18.png" alt="Nanga Parbat InSAR GNSS" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Seismotectonics</span><span class="tag tag-res">Raster · InSAR / GNSS</span></div>
@@ -1748,7 +1888,7 @@
 </div>
 
 <!-- 19 — Makran 1945 Tsunami DEM -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2018">
   <img src="images/v19.png" alt="Makran 1945 Tsunami DEM" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Coastal Hazards</span><span class="tag tag-res">Raster · DEM</span></div>
@@ -1767,7 +1907,7 @@
 </div>
 
 <!-- 20 — Karachi Shoreline Change 1972–2020 -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2021">
   <img src="images/v20.png" alt="Karachi Shoreline Change" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Coastal Hazards</span><span class="tag tag-res">Vector</span></div>
@@ -1787,7 +1927,7 @@
 <!-- ===== DATASETS BATCH 2 (Cards 21–40) ===== -->
 
 <!-- 21 — Shisper Glacier Surge Dataset -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2020">
   <img src="images/v21.png" alt="Shisper Glacier Surge" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Raster + Vector</span></div>
@@ -1806,7 +1946,7 @@
 </div>
 
 <!-- 22 — Shisper Surge Velocity Maps and DEMs -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2022">
   <img src="images/v22.png" alt="Shisper Surge Velocity Maps DEMs" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Raster · DEM</span></div>
@@ -1825,7 +1965,7 @@
 </div>
 
 <!-- 23 — Shisper Glacier PlanetScope Topography -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2020">
   <img src="images/v23.png" alt="Shisper PlanetScope Topography" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Raster · DEM</span></div>
@@ -1844,7 +1984,7 @@
 </div>
 
 <!-- 24 — Shisper Ice-Dammed Lake GIS Layers -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2024">
   <img src="images/v24.png" alt="Shisper Ice-Dammed Lake GIS" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Cryosphere / GLOF</span><span class="tag tag-res">Vector · GIS</span></div>
@@ -1863,7 +2003,7 @@
 </div>
 
 <!-- 25 — Supraglacial Lakes on Baltoro Glacier -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2021">
   <img src="images/v25.png" alt="Supraglacial Lakes Baltoro" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Vector · GIS</span></div>
@@ -1882,7 +2022,7 @@
 </div>
 
 <!-- 26 — Shimshal Valley WRF Simulations -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2019">
   <img src="images/v26.png" alt="Shimshal WRF Simulations" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Cryosphere / Climate</span><span class="tag tag-res">Raster · NetCDF</span></div>
@@ -1901,7 +2041,7 @@
 </div>
 
 <!-- 27 — Glacier Surface Height Change Hunza 2000-2020 -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2023">
   <img src="images/v27.png" alt="Glacier Surface Height Hunza" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Raster · DEM</span></div>
@@ -1920,7 +2060,7 @@
 </div>
 
 <!-- 28 — Nanga Parbat Repeat Photography -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2021">
   <img src="images/v28.png" alt="Nanga Parbat Repeat Photography" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Imagery</span></div>
@@ -1939,7 +2079,7 @@
 </div>
 
 <!-- 29 — Debris-Covered Glacier Melt Karakoram -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2020">
   <img src="images/v29.png" alt="Debris Glacier Melt Karakoram" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Cryosphere</span><span class="tag tag-res">Field · Stake Data</span></div>
@@ -1958,7 +2098,7 @@
 </div>
 
 <!-- 30 — Mangrove Cover Pakistan 1990-2020 -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2020">
   <img src="images/v30.png" alt="Mangrove Cover Pakistan" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Forest & Coast</span><span class="tag tag-res">Raster · 30 m</span></div>
@@ -1977,7 +2117,7 @@
 </div>
 
 <!-- 31 — Indus Delta Mangrove AGB -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2026">
   <img src="images/v31.png" alt="Indus Delta Mangrove AGB" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Forest & Coast</span><span class="tag tag-res">Raster · Biomass</span></div>
@@ -1995,7 +2135,7 @@
 </div>
 
 <!-- 32 — Pakistan LULC & Deforestation 2001-2021 -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2025">
   <img src="images/v32.png" alt="Pakistan LULC Deforestation" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Forest & LULC</span><span class="tag tag-res">Raster</span></div>
@@ -2014,7 +2154,7 @@
 </div>
 
 <!-- 33 — AI-ForestWatch KP -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2021">
   <img src="images/v33.png" alt="AI-ForestWatch KP" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Forest & LULC</span><span class="tag tag-res">Raster</span></div>
@@ -2033,7 +2173,7 @@
 </div>
 
 <!-- 34 — Desertification of Pakistan 1990-2020 -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2026">
   <img src="images/v34.png" alt="Desertification Pakistan" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Land Degradation</span><span class="tag tag-res">Raster</span></div>
@@ -2051,7 +2191,7 @@
 </div>
 
 <!-- 35 — Wheat Area Maps Punjab -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2018">
   <img src="images/v35.png" alt="Wheat Area Maps Punjab" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Agriculture</span><span class="tag tag-res">Raster · Landsat</span></div>
@@ -2070,7 +2210,7 @@
 </div>
 
 <!-- 36 — Crop Areas by District 1980-2012
-<div class="dataset-card">
+<div class="dataset-card" data-published="2016">
   <img src="images/v36.png" alt="Crop Areas District 1980-2012" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Agriculture</span><span class="tag tag-res">Tabular · GIS</span></div>
@@ -2090,7 +2230,7 @@
 -->
 
 <!-- 37 — Crop Ground-Truth Polygons Charsadda -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2023">
   <img src="images/v37.png" alt="Crop Ground Truth Charsadda" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Agriculture</span><span class="tag tag-res">Vector · S2/PlanetScope</span></div>
@@ -2109,7 +2249,7 @@
 </div>
 
 <!-- 38 — UAV Sesame Crop/Weed Imagery -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2022">
   <img src="images/v38.png" alt="UAV Sesame Crop Weed" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Agriculture</span><span class="tag tag-res">UAV · Imagery</span></div>
@@ -2128,7 +2268,7 @@
 </div>
 
 <!-- 39 — UAV Tobacco Crop/Weed Imagery Mardan -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2022">
   <img src="images/v39.png" alt="UAV Tobacco Crop Weed Mardan" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Agriculture</span><span class="tag tag-res">UAV · Imagery</span></div>
@@ -2147,7 +2287,7 @@
 </div>
 
 <!-- 40 — CROPSPECPK Field Spectral Library -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2026">
   <img src="images/v40.png" alt="CROPSPECPK Spectral Library" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Agriculture</span><span class="tag tag-res">Spectral · Field</span></div>
@@ -2167,7 +2307,7 @@
 <!-- ===== DATASETS BATCH 3 (Cards 41–57) ===== -->
 
 <!-- 41 — Anuran Occurrence Northern Pakistan -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2023">
   <img src="images/v41.png" alt="Anuran Occurrence Northern Pakistan" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Biodiversity</span><span class="tag tag-res">Vector · Occurrence</span></div>
@@ -2186,7 +2326,7 @@
 </div>
 
 <!-- 42 — Snow Leopard Population Pakistan
-<div class="dataset-card">
+<div class="dataset-card" data-published="2026">
   <img src="images/v42.png" alt="Snow Leopard Population Pakistan" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Biodiversity</span><span class="tag tag-res">Vector · Camera Trap</span></div>
@@ -2206,7 +2346,7 @@
 -->
 
 <!-- 43 — Rural Poverty Maps Pakistan
-<div class="dataset-card">
+<div class="dataset-card" data-published="2023">
   <img src="images/v43.png" alt="Rural Poverty Maps Pakistan" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Socio-Economic</span><span class="tag tag-res">Raster · Gridded</span></div>
@@ -2226,7 +2366,7 @@
 -->
 
 <!-- 44 — Socio-Economic Assets Exposed to Disaster Loss
-<div class="dataset-card">
+<div class="dataset-card" data-published="2026">
   <img src="images/v44.png" alt="Socio-Economic Assets Disaster Loss" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Socio-Economic</span><span class="tag tag-res">Gridded</span></div>
@@ -2245,7 +2385,7 @@
 -->
 
 <!-- 45 — Hydrometeorological Network Namal Valley
-<div class="dataset-card">
+<div class="dataset-card" data-published="2025">
   <img src="images/v45.png" alt="Hydrometeorological Namal Valley" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Hydrology & Climate</span><span class="tag tag-res">Station · Time Series</span></div>
@@ -2264,7 +2404,7 @@
 -->
 
 <!-- 46 — Streamflow Timing Pakistan (CORDEX)
-<div class="dataset-card">
+<div class="dataset-card" data-published="2022">
   <img src="images/v46.png" alt="Streamflow Timing Pakistan CORDEX" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Hydrology & Climate</span><span class="tag tag-res">Gridded · NetCDF</span></div>
@@ -2284,7 +2424,7 @@
 -->
 
 <!-- 47 — Upper Indus Basin SWAT Hydrologic Projections
-<div class="dataset-card">
+<div class="dataset-card" data-published="2020">
   <img src="images/v47.png" alt="UIB SWAT Hydrologic Projections" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Hydrology & Climate</span><span class="tag tag-res">Model · NetCDF</span></div>
@@ -2304,7 +2444,7 @@
 -->
 
 <!-- 48 — Drinking-Water Lakes Water Quality
-<div class="dataset-card">
+<div class="dataset-card" data-published="2025">
   <img src="images/v48.png" alt="Drinking Water Lakes Water Quality" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · Field</span></div>
@@ -2324,7 +2464,7 @@
 -->
 
 <!-- 49 — Groundwater Quality Lahore
-<div class="dataset-card">
+<div class="dataset-card" data-published="2018">
   <img src="images/v49.png" alt="Groundwater Quality Lahore" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · Field</span></div>
@@ -2344,7 +2484,7 @@
 -->
 
 <!-- 50 — Groundwater Quality Larkana
-<div class="dataset-card">
+<div class="dataset-card" data-published="2022">
   <img src="images/v50.png" alt="Groundwater Quality Larkana" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · WQI</span></div>
@@ -2364,7 +2504,7 @@
 -->
 
 <!-- 51 — Groundwater Quality Peshawar -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2019">
   <img src="images/v51.png" alt="Groundwater Quality Peshawar" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · Field</span></div>
@@ -2383,7 +2523,7 @@
 </div>
 
 <!-- 52 — Post-Flood Groundwater Quality Sindh 2022-23
-<div class="dataset-card">
+<div class="dataset-card" data-published="2025">
   <img src="images/v52.png" alt="Post-Flood Groundwater Quality Sindh" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · Field</span></div>
@@ -2403,7 +2543,7 @@
 -->
 
 <!-- 53 — PCRWR Groundwater Quality 25 Cities
-<div class="dataset-card">
+<div class="dataset-card" data-published="2020">
   <img src="images/v53.png" alt="PCRWR Groundwater 25 Cities" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · 366 Samples</span></div>
@@ -2423,7 +2563,7 @@
 -->
 
 <!-- 54 — Arsenic in Wells Upper Indus Plain -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2023">
   <img src="images/v54.png" alt="Arsenic Upper Indus Plain" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Water Quality</span><span class="tag tag-res">Point · Well Samples</span></div>
@@ -2442,7 +2582,7 @@
 </div>
 
 <!-- 55 — Roadside Soil Contamination GT Road -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2025">
   <img src="images/v55.png" alt="Roadside Soil Contamination GT Road" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Soil & Pollution</span><span class="tag tag-res">Point · Field</span></div>
@@ -2461,7 +2601,7 @@
 </div>
 
 <!-- 56 — PMMRD Pakistan Mineral Occurrence Database
-<div class="dataset-card">
+<div class="dataset-card" data-published="2026">
   <img src="images/v56.png" alt="PMMRD Pakistan Mineral Database" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Geology</span><span class="tag tag-res">Vector · Database</span></div>
@@ -2481,7 +2621,7 @@
 -->
 
 <!-- 57 — Makran Trench Geology and Geophysics -->
-<div class="dataset-card">
+<div class="dataset-card" data-published="2021">
   <img src="images/v57.png" alt="Makran Trench Geology Geophysics" class="dataset-thumb">
   <div class="dataset-main">
     <div class="dataset-tags"><span class="tag tag-cat">Geology</span><span class="tag tag-res">Raster + Vector</span></div>
@@ -2636,14 +2776,26 @@
     let currentPage = 1;
 
     const categoryOf = (card) => card.querySelector('.tag-cat').textContent.trim();
+    const metaItemOf = (card, label) => Array.from(card.querySelectorAll('.dataset-meta .meta-item'))
+      .find((el) => {
+        const strong = el.querySelector('strong');
+        return strong && strong.textContent.trim() === label;
+      });
     const authorsOf = (card) => {
-      const item = Array.from(card.querySelectorAll('.dataset-meta .meta-item'))
-        .find((el) => {
-          const label = el.querySelector('strong');
-          return label && label.textContent.trim() === 'Authors';
-        });
+      const item = metaItemOf(card, 'Authors');
       if (!item) return '';
       return item.textContent.replace(/^Authors\s*[·:]\s*/, '').trim();
+    };
+    // Year the dataset was published. Cards carry it in data-published (the first
+    // online date of the dataset's paper); a "Date Published" line on the card is
+    // used where that attribute is absent. The plain "Date" line is the dataset's
+    // own time span (e.g. "1990–2020"), so it is never used here.
+    const publishedYearOf = (card) => {
+      const explicit = parseInt(card.dataset.published, 10);
+      if (explicit) return explicit;
+      const item = metaItemOf(card, 'Date Published');
+      const match = item ? item.textContent.match(/\d{4}/) : null;
+      return match ? parseInt(match[0], 10) : null;
     };
     // Split the author list into individual authors exactly as displayed on the card
     // (e.g. "Surname A., Surname B. et al. (Surname C.)" -> ["Surname A.", "Surname B.", "Surname C."]).
@@ -2804,6 +2956,241 @@
       }));
     }
 
+    // ---- Publishing trend chart -------------------------------------------
+    const trendPlot = document.getElementById('trend-plot');
+    const trendTooltip = document.getElementById('trend-tooltip');
+    const trendContext = document.getElementById('trend-context');
+    const trendNote = document.getElementById('trend-note');
+    const trendLive = document.getElementById('trend-live');
+    const trendTable = document.getElementById('trend-table');
+    const trendNoteText = trendNote.textContent;
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+
+    // The year axis always spans the whole catalogue, so a filtered view can be
+    // compared with the full picture at a glance.
+    const catalogueYears = datasetCards.map(publishedYearOf).filter(Boolean);
+    const firstYear = Math.min(...catalogueYears);
+    const lastYear = Math.max(...catalogueYears);
+
+    let trendRows = [];
+    let trendTotal = 0;
+    let trendActive = -1;
+    let trendGeometry = null;
+
+    const svgEl = (name, attrs) => {
+      const el = document.createElementNS(SVG_NS, name);
+      Object.keys(attrs || {}).forEach((key) => el.setAttribute(key, attrs[key]));
+      return el;
+    };
+    const plural = (n) => `${n} dataset${n === 1 ? '' : 's'}`;
+    const niceStep = (max) => (max <= 5 ? 1 : max <= 10 ? 2 : max <= 25 ? 5 : 10);
+
+    // Column with a 4px rounded data-end and a square foot on the baseline.
+    const columnPath = (x, y, w, h) => {
+      const r = Math.min(4, w / 2, h);
+      return `M${x},${y + h}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}`
+        + `Q${x + w},${y} ${x + w},${y + r}V${y + h}Z`;
+    };
+
+    function drawTrend() {
+      const width = trendPlot.clientWidth;
+      if (!width || !trendRows.length) return;
+      const narrow = width < 520;
+      const height = narrow ? 190 : 220;
+      const m = { top: 22, right: 6, bottom: 26, left: 28 };
+      const plotW = width - m.left - m.right;
+      const plotH = height - m.top - m.bottom;
+      const slot = plotW / trendRows.length;
+      const barW = Math.min(24, Math.max(3, slot * 0.66));
+      const maxCount = Math.max(0, ...trendRows.map((row) => row.count));
+      const step = niceStep(Math.max(1, maxCount));
+      const yMax = Math.max(step, Math.ceil(maxCount / step) * step);
+      const yOf = (value) => m.top + plotH - (value / yMax) * plotH;
+
+      const svg = svgEl('svg', {
+        viewBox: `0 0 ${width} ${height}`,
+        height,
+        tabindex: '0',
+        role: 'img',
+        'aria-label': `Column chart of ${plural(trendTotal)} by publication year, ${firstYear} to ${lastYear}. `
+          + 'Use the left and right arrow keys to read each year.',
+      });
+
+      // Recessive gridlines with clean integer ticks.
+      for (let v = 0; v <= yMax; v += step) {
+        const y = Math.round(yOf(v)) + 0.5;
+        svg.appendChild(svgEl('line', {
+          class: v === 0 ? 'trend-baseline' : 'trend-grid',
+          x1: m.left, x2: width - m.right, y1: y, y2: y,
+        }));
+        const tick = svgEl('text', { class: 'trend-axis', x: m.left - 8, y: y + 4, 'text-anchor': 'end' });
+        tick.textContent = v;
+        svg.appendChild(tick);
+      }
+
+      // Year labels: every year when there is room, otherwise every 2nd or 5th.
+      const every = [1, 2, 5].find((k) => slot * k >= 36) || 10;
+      trendRows.forEach((row, i) => {
+        if (row.year % every !== 0 && every !== 1) return;
+        const label = svgEl('text', {
+          class: 'trend-axis', x: m.left + slot * (i + 0.5), y: height - 6, 'text-anchor': 'middle',
+        });
+        label.textContent = row.year;
+        svg.appendChild(label);
+      });
+
+      const bars = [];
+      const peakCount = trendRows.filter((row) => row.count === maxCount).length;
+      trendRows.forEach((row, i) => {
+        if (!row.count) { bars.push(null); return; }
+        const x = m.left + slot * i + (slot - barW) / 2;
+        const y = yOf(row.count);
+        const bar = svgEl('path', { class: 'trend-bar', d: columnPath(x, y, barW, m.top + plotH - y) });
+        svg.appendChild(bar);
+        bars.push(bar);
+        // Label only the peak year(s); the tooltip and table carry the rest.
+        if (row.count === maxCount && peakCount <= 3) {
+          const peak = svgEl('text', { class: 'trend-peak', x: x + barW / 2, y: y - 6, 'text-anchor': 'middle' });
+          peak.textContent = row.count;
+          svg.appendChild(peak);
+        }
+      });
+
+      if (!trendTotal) {
+        const empty = svgEl('text', {
+          class: 'trend-empty', x: m.left + plotW / 2, y: m.top + plotH / 2, 'text-anchor': 'middle',
+        });
+        empty.textContent = 'No datasets match the selected filter';
+        svg.appendChild(empty);
+      }
+
+      const old = trendPlot.querySelector('svg');
+      if (old) old.replaceWith(svg); else trendPlot.insertBefore(svg, trendTooltip);
+      trendGeometry = { svg, bars, m, slot, yOf };
+      bindTrendEvents(svg);
+      if (trendActive >= 0) showTrendYear(trendActive);
+    }
+
+    function showTrendYear(index) {
+      if (!trendGeometry || !trendRows[index]) return;
+      const { bars, m, slot, yOf } = trendGeometry;
+      bars.forEach((bar, i) => { if (bar) bar.classList.toggle('active', i === index); });
+      trendActive = index;
+      const row = trendRows[index];
+      trendTooltip.textContent = '';
+      const year = document.createElement('strong');
+      year.textContent = row.year;
+      trendTooltip.append(year, ` · ${plural(row.count)}${row.year === new Date().getFullYear() ? ' so far' : ''}`);
+      trendTooltip.hidden = false;
+      const half = trendTooltip.offsetWidth / 2;
+      const centre = m.left + slot * (index + 0.5);
+      const left = Math.min(Math.max(centre, half), trendPlot.clientWidth - half);
+      trendTooltip.style.left = `${left}px`;
+      trendTooltip.style.top = `${yOf(row.count)}px`;
+    }
+
+    function hideTrendYear() {
+      trendActive = -1;
+      trendTooltip.hidden = true;
+      if (trendGeometry) trendGeometry.bars.forEach((bar) => { if (bar) bar.classList.remove('active'); });
+    }
+
+    function bindTrendEvents(svg) {
+      const indexAt = (event) => {
+        const box = svg.getBoundingClientRect();
+        const x = event.clientX - box.left - trendGeometry.m.left;
+        const index = Math.floor(x / trendGeometry.slot);
+        return index >= 0 && index < trendRows.length ? index : -1;
+      };
+      const onPoint = (event) => {
+        const index = indexAt(event);
+        if (index < 0) hideTrendYear(); else showTrendYear(index);
+      };
+      svg.addEventListener('pointermove', onPoint);
+      svg.addEventListener('pointerdown', onPoint);
+      svg.addEventListener('pointerleave', (event) => {
+        if (event.pointerType !== 'touch' && document.activeElement !== svg) hideTrendYear();
+      });
+      svg.addEventListener('blur', hideTrendYear);
+      svg.addEventListener('keydown', (event) => {
+        const lastIndex = trendRows.length - 1;
+        let next = trendActive;
+        if (event.key === 'ArrowRight') next = trendActive < 0 ? 0 : Math.min(lastIndex, trendActive + 1);
+        else if (event.key === 'ArrowLeft') next = trendActive < 0 ? lastIndex : Math.max(0, trendActive - 1);
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = lastIndex;
+        else if (event.key === 'Escape') { hideTrendYear(); return; }
+        else return;
+        event.preventDefault();
+        showTrendYear(next);
+        trendLive.textContent = `${trendRows[next].year}: ${plural(trendRows[next].count)}`;
+      });
+    }
+
+    // A tap outside the chart dismisses a touch tooltip.
+    document.addEventListener('pointerdown', (event) => {
+      if (trendGeometry && !trendGeometry.svg.contains(event.target)) hideTrendYear();
+    });
+
+    function renderTrend(cards, tag, author) {
+      const counts = new Map();
+      let undated = 0;
+      cards.forEach((card) => {
+        const year = publishedYearOf(card);
+        if (year) counts.set(year, (counts.get(year) || 0) + 1);
+        else undated += 1;
+      });
+      trendRows = [];
+      for (let year = firstYear; year <= lastYear; year++) {
+        trendRows.push({ year, count: counts.get(year) || 0 });
+      }
+      trendTotal = cards.length - undated;
+
+      trendContext.textContent = '';
+      const filters = [];
+      if (tag !== 'all') filters.push(tag);
+      if (author) filters.push(author);
+      if (filters.length) {
+        const which = document.createElement('strong');
+        which.textContent = filters.join(' · ');
+        trendContext.append(which, ` — ${plural(trendTotal)}`);
+      } else {
+        trendContext.textContent = `All ${plural(trendTotal)}, ${firstYear}–${lastYear}`;
+      }
+
+      trendNote.textContent = undated
+        ? `${trendNoteText} ${plural(undated)} without a publication year ${undated === 1 ? 'is' : 'are'} not shown.`
+        : trendNoteText;
+
+      trendTable.textContent = '';
+      trendRows.forEach((row) => {
+        const tr = document.createElement('tr');
+        const th = document.createElement('th');
+        th.scope = 'row';
+        th.textContent = row.year;
+        const td = document.createElement('td');
+        td.textContent = row.count;
+        tr.append(th, td);
+        trendTable.appendChild(tr);
+      });
+
+      trendActive = -1;
+      trendTooltip.hidden = true;
+      drawTrend();
+    }
+
+    if (window.ResizeObserver) {
+      let lastWidth = 0;
+      new ResizeObserver(() => {
+        if (trendPlot.clientWidth !== lastWidth) {
+          lastWidth = trendPlot.clientWidth;
+          drawTrend();
+        }
+      }).observe(trendPlot);
+    } else {
+      window.addEventListener('resize', drawTrend);
+    }
+
     function applyDatasetControls(resetPage) {
       const tag = tagFilter.value;
       const author = authorFilter.value;
@@ -2813,6 +3200,7 @@
         (tag === 'all' || categoryOf(card) === tag)
         && matchesAuthor(card, author)
       ));
+      renderTrend(matched, tag, author);
       const direction = yearSort.value === 'asc' ? 1 : -1;
       const ordered = yearSort.value === 'default'
         ? matched
@@ -2880,7 +3268,8 @@
       if (!btn || btn.disabled) return;
       currentPage = parseInt(btn.dataset.page, 10);
       applyDatasetControls();
-      document.getElementById('datasets').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Jump to the first card of the new page (the trend chart sits above the list).
+      datasetGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     applyDatasetControls(true);
   </script>
